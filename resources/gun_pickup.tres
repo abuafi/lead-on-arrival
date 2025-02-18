@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PackedEquippablePickup" load_steps=3 format=3 uid="uid://cme00juai6vw0"]
+
+[ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/gun_pickup.png" id="1_awxk7"]
+[ext_resource type="Script" path="res://scripts/packed_equippable_pickup.gd" id="1_npvjm"]
+
+[resource]
+script = ExtResource("1_npvjm")
+pickup_texture = ExtResource("1_awxk7")
