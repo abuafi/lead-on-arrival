@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bigy6vni8dtc0"]
+
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="1_ohfwc"]
+[ext_resource type="Texture2D" uid="uid://c8iw5j2agycro" path="res://assets/gun_weapon.png" id="1_umni3"]
+[ext_resource type="Resource" uid="uid://cme00juai6vw0" path="res://resources/gun_pickup.tres" id="2_mt38b"]
+
+[node name="GunWeapon" type="Node2D"]
+script = ExtResource("1_ohfwc")
+weapon_resource = ExtResource("2_mt38b")
+
+[node name="GunSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 6)
+texture = ExtResource("1_umni3")

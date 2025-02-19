@@ -22,6 +22,7 @@ func _physics_process(_delta: float) -> void:
         velocity.x = move_toward(velocity.x, 0, SPEED)
         velocity.y = move_toward(velocity.y, 0, SPEED)
 
+    body.set_velocity(velocity)
     apply_forces()
 
 func apply_forces():

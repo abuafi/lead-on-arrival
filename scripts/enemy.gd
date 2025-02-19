@@ -30,11 +30,11 @@ func _on_target_player_moved(player_position: Vector2):
     target_position = player_position
 
 func _physics_process(_delta):
-    print(target_position, " ", position)
     if is_targeting(): body.set_target_position_global(target_position, _delta)
 
     var dir: Vector2 = nav.get_next_path_position() - global_position
     velocity = dir.normalized() * SPEED
+    body.set_velocity(velocity)
     # velocity = velocity.lerp(dir * SPEED, _delta)
 
     

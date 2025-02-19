@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="PackedEquippablePickup" load_steps=3 format=3 uid="uid://cme00juai6vw0"]
+[gd_resource type="Resource" script_class="PackedEquippablePickup" load_steps=4 format=3 uid="uid://cme00juai6vw0"]
 
 [ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/gun_pickup.png" id="1_awxk7"]
 [ext_resource type="Script" path="res://scripts/packed_equippable_pickup.gd" id="1_npvjm"]
+[ext_resource type="PackedScene" uid="uid://bigy6vni8dtc0" path="res://scenes/weapons/gun_weapon.tscn" id="3_qhc5m"]
 
 [resource]
 script = ExtResource("1_npvjm")
+weapon_scene = ExtResource("3_qhc5m")
+arms_sprite = NodePath("ArmsSingleSprite")
 pickup_texture = ExtResource("1_awxk7")
