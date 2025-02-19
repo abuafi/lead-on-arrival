@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqg2rc3bnbbos"]
+
+[ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_ca5ci"]
+[ext_resource type="Texture2D" uid="uid://cvvvmtc0t3yrv" path="res://assets/bullet.png" id="2_eguhd"]
+
+[sub_resource type="Curve" id="Curve_wftgh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8n1um"]
+radius = 5.0
+height = 16.0
+
+[node name="Bullet" type="RigidBody2D"]
+mass = 0.1
+gravity_scale = 0.0
+script = ExtResource("1_ca5ci")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_eguhd")
+
+[node name="Trail" type="Line2D" parent="."]
+width_curve = SubResource("Curve_wftgh")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8n1um")

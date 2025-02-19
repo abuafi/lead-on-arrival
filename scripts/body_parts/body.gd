@@ -5,6 +5,7 @@ class_name Body
 @onready var torso: Node2D = $Torso
 @onready var legs: Legs = $Legs
 @onready var arms: Arms = $Arms
+@onready var entity: CharacterEntity = $".."
 
 const ROTATION_SPEED: float = 15.
 const ARM_ROTATION_SPEED: float = 30.
@@ -41,4 +42,7 @@ func set_torso_wobble(angle: float):
     pass
 
 func equip_weapon(weapon: Weapon):
+    print(entity)
+    weapon.entity = entity
+    weapon.body = self
     arms.set_weapon(weapon)

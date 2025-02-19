@@ -31,3 +31,23 @@ func rand_point(layer: int = PICKUP_NAV_LAYER) -> Vector2:
     var layers: int = nav_region.get_navigation_layer_value(layer)
     var random_point: Vector2 = NavigationServer2D.map_get_random_point(nav_rid, layers, true)
     return random_point
+
+func add_entity(entity: Node2D, where: Marker2D):
+    entity_container.add_child(entity)
+    entity.global_position = where.global_position
+    entity.global_rotation = where.global_rotation
+
+func character_entities() -> Array[CharacterEntity]:
+    var out: Array[CharacterEntity] = []
+    out.assign(entity_container
+        .get_children()
+        .filter(func (e): return e is CharacterEntity)
+    )
+    return out 
+
+func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
+    var is_hostile: bool = source.is_in_group(&"hostile")
+    var entities: Array[CharacterEntity] = character_entities()
+    if entities.size() == 0: return [source]
+    entities = entities.filter(func(e): return is_hostile != e.is_in_group(&"hostile"))
+    return entities

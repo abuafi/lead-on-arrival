@@ -6,7 +6,10 @@ class_name PackedEquippablePickup
 
 func on_pickup(player: Player):
     super.on_pickup(player)
+    equip_to_entity(player)
+
+func equip_to_entity(entity: CharacterEntity):
     if not is_instance_valid(weapon_scene): return
     var weapon: Weapon = weapon_scene.instantiate()
     weapon.weapon_resource = self
-    player.body.equip_weapon(weapon)
+    entity.body.equip_weapon(weapon)

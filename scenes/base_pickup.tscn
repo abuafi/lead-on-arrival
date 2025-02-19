@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://xq6qiocs1bpd"]
 
-[ext_resource type="Script" path="res://scripts/pickup.gd" id="1_mpxcl"]
+[ext_resource type="Script" path="res://scripts/entities/pickup.gd" id="1_mpxcl"]
 [ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/gun_pickup.png" id="1_nx2tk"]
 [ext_resource type="Resource" uid="uid://cme00juai6vw0" path="res://resources/gun_pickup.tres" id="2_a6bti"]
 

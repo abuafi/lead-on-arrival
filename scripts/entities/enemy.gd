@@ -1,14 +1,13 @@
-extends CharacterBody2D
+extends CharacterEntity
 class_name Enemy
 
-@onready var head: Head = $Body/Head
-@onready var body: Body = $Body
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 @onready var detection_area: DetectionArea = $Body/Head/DetectionArea
 
-const SPEED = 150.0
+const SPEED: float = 150.0
 
 func _ready():
+    add_to_group(&"hostile")
     detection_area.player_detected.connect(_on_player_detected)
 
 var target_position: Vector2 :
@@ -21,6 +20,7 @@ var target_player: Player :
             target_player.moved.disconnect(_on_target_player_moved)
         if is_instance_valid(p):
             p.moved.connect(_on_target_player_moved)
+            target_position = p.global_position
         target_player = p
 
 func _on_player_detected(player_detected: Player):
@@ -35,10 +35,8 @@ func _physics_process(_delta):
     var dir: Vector2 = nav.get_next_path_position() - global_position
     velocity = dir.normalized() * SPEED
     body.set_velocity(velocity)
-    # velocity = velocity.lerp(dir * SPEED, _delta)
-
     
-    move_and_slide()
+    apply_forces()
 
 func is_targeting() -> bool:
     return target_position and (

@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=3 uid="uid://cjdf6b1rsf335"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jhjaa"]
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
 [ext_resource type="Script" path="res://scripts/body_parts/body.gd" id="2_e2qft"]
 [ext_resource type="Script" path="res://utils/cone_shape_2d.gd" id="3_7mh2a"]
@@ -134,7 +134,7 @@ script = ExtResource("5_ujaj2")
 [node name="ArmsSprite" type="Sprite2D" parent="Body/Arms"]
 texture = ExtResource("5_4s0w1")
 
-[node name="ArmsSingleSprite" type="Sprite2D" parent="Body/Arms"]
+[node name="ArmsSingleSprite" type="Sprite2D" parent="Body/Arms" groups=["hostile"]]
 texture = ExtResource("7_cev4f")
 
 [node name="WeaponMarker" type="Marker2D" parent="Body/Arms/ArmsSingleSprite"]
@@ -172,4 +172,3 @@ visible = false
 shape = SubResource("CircleShape2D_nelab")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
