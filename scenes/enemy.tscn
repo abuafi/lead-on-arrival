@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjdf6b1rsf335"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_jhjaa"]
+[ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
+[ext_resource type="Script" path="res://scripts/body.gd" id="2_e2qft"]
+[ext_resource type="Script" path="res://utils/cone_shape_2d.gd" id="3_7mh2a"]
+[ext_resource type="Script" path="res://scripts/head.gd" id="3_k7r21"]
+[ext_resource type="Script" path="res://scripts/detection_area.gd" id="3_sgmf2"]
+[ext_resource type="Texture2D" uid="uid://cpxati1txvxoi" path="res://assets/player_body.png" id="6_qtlf1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nelab"]
+
+[node name="Enemy" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_jhjaa")
+
+[node name="Body" type="Node2D" parent="."]
+script = ExtResource("2_e2qft")
+
+[node name="Torso" type="Node2D" parent="Body"]
+
+[node name="EnemyBody" type="Sprite2D" parent="Body/Torso"]
+texture = ExtResource("6_qtlf1")
+
+[node name="Head" type="Node2D" parent="Body"]
+script = ExtResource("3_k7r21")
+
+[node name="HeadSprite" type="Sprite2D" parent="Body/Head"]
+texture = ExtResource("2_2tia3")
+
+[node name="DetectionArea" type="Area2D" parent="Body/Head"]
+script = ExtResource("3_sgmf2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body/Head/DetectionArea"]
+polygon = PackedVector2Array(0, 0, 173.185, 100.034, 136.014, 146.63, 86.7615, 180.201, 29.8029, 197.767, -29.8029, 197.767, -86.7615, 180.201, -136.014, 146.63, -173.185, 100.034)
+script = ExtResource("3_7mh2a")
+cone_angle = 2.094
+cone_distance = 200.0
+subdivisions = 7
+
+[node name="RayCast2D" type="RayCast2D" parent="Body/Head/DetectionArea"]
+enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_nelab")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
