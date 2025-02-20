@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bas84qqwxpy5f"]
 
-[ext_resource type="Texture2D" uid="uid://c64hr06fro8o8" path="res://assets/transition.png" id="1_ccxyo"]
+[ext_resource type="Texture2D" uid="uid://c64hr06fro8o8" path="res://assets/transition.png" id="1_67rvc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ounei"]
 size = Vector2(40, 20)
@@ -22,4 +22,4 @@ shape = SubResource("RectangleShape2D_pbik8")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 z_index = -1
-texture = ExtResource("1_ccxyo")
+texture = ExtResource("1_67rvc")

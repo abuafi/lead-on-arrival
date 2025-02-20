@@ -26,6 +26,9 @@ func set_target_position_global(target_position: Vector2, delta: float):
 
 func set_velocity(velocity: Vector2):
     legs.moving = not is_zero_approx(velocity.length_squared())
+    velocity = velocity.normalized()
+    var rotated_velocity = velocity.rotated(-torso_rotation)
+    legs.invert = rotated_velocity.y < 0
 
 var torso_wobble: float = 0 :
     set(w):

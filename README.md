@@ -1,6 +1,6 @@
 TODO
 
-- Level system and transition
+- ~~Level system and transition~~
 - Enemy AI with behaviour tree
 - ~~Bullet target switching~~
 - Actually building the levels

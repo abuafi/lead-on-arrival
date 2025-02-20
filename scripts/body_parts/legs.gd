@@ -15,6 +15,11 @@ var moving: bool = false :
         else:
             last_frame = sprite.frame
             sprite.stop()
+var invert: bool = false :
+    set(i):
+        if invert == i: return
+        invert = i 
+        sprite.speed_scale = -1 if invert else 1
 
 func _ready():
     sprite.frame_changed.connect(_on_frame_changed)

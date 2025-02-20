@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://dsmnj7wwgpwfk"]
+[gd_scene load_steps=7 format=4 uid="uid://dsmnj7wwgpwfk"]
 
 [ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="1_gkpw2"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_e63ac"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_qhfc4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7n3"]
 texture = ExtResource("1_gkpw2")
@@ -143,7 +144,7 @@ size = Vector2(465, 165)
 
 [node name="Level" type="Node2D"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
 position = Vector2(0, -9)
 tile_map_data = PackedByteArray("AAD6/wUAAAABAAEAAAD6/wQAAAABAAEAAAD7/wMAAAABAAEAAAD7/wQAAAABAAEAAAD7/wUAAAABAAEAAAD8/wUAAAABAAEAAAD8/wQAAAABAAEAAAD8/wMAAAABAAEAAAD7/wIAAAABAAEAAAD8/wIAAAABAAEAAAD6//v/AAABAAEAAAD6//z/AAABAAEAAAD6//3/AAABAAEAAAD6//7/AAABAAEAAAD7//7/AAABAAEAAAD7////AAABAAEAAAD7//3/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//z/AAABAAEAAAAEAAUAAAABAAEAAAAEAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAJAP//AAABAAEAAAAJAP7/AAABAAEAAAAJAP3/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_jkm3y")
@@ -152,6 +153,7 @@ tile_set = SubResource("TileSet_jkm3y")
 
 [node name="Enemy" parent="EntityContainer" instance=ExtResource("2_e63ac")]
 position = Vector2(-204, 19)
+default_equip = ExtResource("3_qhfc4")
 
 [node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_e63ac")]
 position = Vector2(213, 67)

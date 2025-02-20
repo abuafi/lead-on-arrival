@@ -62,12 +62,6 @@ func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
     if entities.size() == 0: return [source]
     return entities
 
-const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
-func spawn_player():
-    var player: Player = PLAYER_SCENE.instantiate()
-    entity_container.add_child(player)
-    player.global_position = entrance.global_position
-
 func load_level(level_path: String):
     var level_scene: PackedScene = load(level_path)
     var level_node: Node2D = level_scene.instantiate()
@@ -86,20 +80,29 @@ var completed: bool = false :
         if not completed: activate()
 
 func activate():
-    # TODO bake navigation map
-    # TODO Open left door when ready
+    nav_region.bake_finished.connect( 
+        _activate_on_bake_finished,
+        ConnectFlags.CONNECT_ONE_SHOT)
+    nav_region.bake_navigation_polygon()
+    
+func _activate_on_bake_finished():
+    entrance.open()
+    entrance.player_passed_right.connect(_on_entrance_player_passed_right)
     completion_timer.timeout.connect(check_level_completion)
     completion_timer.start()
 
-func _on_player_passed_right(player: Player):
+func _on_entrance_player_passed_right(player: Player):
+    entrance.close()
+    level_started.emit(player)
+
+func _on_exit_player_passed_right(player: Player):
     exit.close()
     level_passed.emit(player)
 
 func deactivate():
     exit.open()
-    print(exit)
     exit.player_passed_right.connect(
-        _on_player_passed_right, 
+        _on_exit_player_passed_right, 
         ConnectFlags.CONNECT_ONE_SHOT)
     completion_timer.stop()
     
@@ -108,3 +111,4 @@ func check_level_completion():
         completed = true
 
 signal level_passed(player: Player)
+signal level_started(player: Player)
