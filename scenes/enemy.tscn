@@ -1,13 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://cjdf6b1rsf335"]
+[gd_scene load_steps=28 format=3 uid="uid://cjdf6b1rsf335"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_5qak0"]
 [ext_resource type="Script" path="res://scripts/body_parts/body.gd" id="2_e2qft"]
-[ext_resource type="Script" path="res://utils/cone_shape_2d.gd" id="3_7mh2a"]
+[ext_resource type="Script" path="res://utils/cone_collision_shape_2d.gd" id="3_7mh2a"]
 [ext_resource type="Script" path="res://scripts/body_parts/legs.gd" id="3_gv56b"]
 [ext_resource type="Script" path="res://scripts/body_parts/head.gd" id="3_k7r21"]
-[ext_resource type="Script" path="res://scripts/detection_area.gd" id="3_sgmf2"]
+[ext_resource type="Script" path="res://scripts/areas/detection_area.gd" id="3_sgmf2"]
 [ext_resource type="Texture2D" uid="uid://tt173q6bf342" path="res://assets/legs-sheet.png" id="4_jbsv8"]
 [ext_resource type="Texture2D" uid="uid://ckgn3i130082g" path="res://assets/arms.png" id="5_4s0w1"]
 [ext_resource type="Script" path="res://scripts/body_parts/arms.gd" id="5_ujaj2"]
@@ -118,7 +117,6 @@ animations = [{
 [node name="Enemy" type="CharacterBody2D" groups=["hostile"]]
 motion_mode = 1
 script = ExtResource("1_jhjaa")
-default_equip = ExtResource("2_5qak0")
 
 [node name="Body" type="Node2D" parent="."]
 script = ExtResource("2_e2qft")
@@ -132,7 +130,7 @@ animation = &"walk"
 
 [node name="Arms" type="Node2D" parent="Body" node_paths=PackedStringArray("current_sprite")]
 script = ExtResource("5_ujaj2")
-current_sprite = NodePath("ArmsSingleSprite")
+current_sprite = NodePath("ArmsSprite")
 
 [node name="ArmsSprite" type="Sprite2D" parent="Body/Arms"]
 texture = ExtResource("5_4s0w1")
@@ -175,3 +173,5 @@ visible = false
 shape = SubResource("CircleShape2D_nelab")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+debug_enabled = true

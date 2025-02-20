@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqg2rc3bnbbos"]
+[gd_scene load_steps=8 format=3 uid="uid://dqg2rc3bnbbos"]
 
 [ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_ca5ci"]
 [ext_resource type="Texture2D" uid="uid://cvvvmtc0t3yrv" path="res://assets/bullet.png" id="2_eguhd"]
+[ext_resource type="Script" path="res://scripts/areas/bullet_detection_area.gd" id="3_0bf7b"]
+[ext_resource type="Script" path="res://utils/cone_collision_shape_2d.gd" id="4_2do1p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7wmq6"]
 friction = 0.0
@@ -13,13 +15,15 @@ point_count = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8n1um"]
 radius = 5.0
-height = 16.0
+height = 14.0
 
 [node name="Bullet" type="RigidBody2D"]
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_7wmq6")
 gravity_scale = 0.0
 script = ExtResource("1_ca5ci")
+trail_points = null
+trail_length = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_eguhd")
@@ -33,3 +37,15 @@ debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8n1um")
+
+[node name="BulletDetectionArea" type="Area2D" parent="."]
+rotation = 3.14159
+script = ExtResource("3_0bf7b")
+
+[node name="ConeCollisionShape2D" type="CollisionPolygon2D" parent="BulletDetectionArea"]
+position = Vector2(8.74228e-08, 1)
+polygon = PackedVector2Array(0, 0, 191.25, 461.978, 116.665, 486.199, 39.2097, 498.46, -39.2097, 498.46, -116.665, 486.199, -191.25, 461.978)
+script = ExtResource("4_2do1p")
+cone_angle = 0.785
+cone_distance = 500.0
+subdivisions = 5

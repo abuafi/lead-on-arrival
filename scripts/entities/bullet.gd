@@ -97,3 +97,10 @@ func _process(_delta: float) -> void:
             i,
             to_local(trail_positions[i])
         )
+
+@onready var detection_area: BulletDetectionArea = $BulletDetectionArea
+func _ready():
+    detection_area.closest_entity_changed.connect(_on_entity_closest)
+
+func _on_entity_closest(entity: CharacterEntity):
+    target_entity = entity

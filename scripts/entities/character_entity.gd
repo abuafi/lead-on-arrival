@@ -6,10 +6,17 @@ class_name CharacterEntity
 
 @export var default_equip: PackedEquippablePickup = null
 
+var current_traincar: Traincar = null
+
 func get_current_traincar() -> Traincar:
-    var holder: Node2D = get_parent()
-    var traincar: Traincar = holder.get_parent()
-    return traincar
+    return current_traincar
+
+func _on_tree_entered():
+    current_traincar = get_node(^"../../../..")
+    # Traincar/NavRegion/Level/EntityHolder/Entity
+
+func _init() -> void:
+    tree_entered.connect(_on_tree_entered)
 
 func _ready():
     if is_instance_valid(default_equip):

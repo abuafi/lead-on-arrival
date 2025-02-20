@@ -1,19 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://d2ulpp2648lln"]
+[gd_scene load_steps=7 format=4 uid="uid://dsmnj7wwgpwfk"]
 
-[ext_resource type="Script" path="res://scripts/traincar.gd" id="1_vncj4"]
-[ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/traincar.png" id="2_isu8i"]
-[ext_resource type="PackedScene" uid="uid://bfjoccdx3f8ao" path="res://scenes/player.tscn" id="3_7pwde"]
-[ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="4_f6gyd"]
-[ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="5_jeuxy"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_mv5gb"]
-vertices = PackedVector2Array(227, -8, 239.539, -8, 239.461, 8, 227, 8, -106, -15, -90, -15, -90, 1, -54, 1, -54, -31, -38, -31, -38, 13, -38, -77, 226.859, -77, 226.859, 77, -38, 77, 227, -76.8594, -90, 13, -90, 45, -106, 45, -106, 77, -226.859, 77, -227, 8, -240, 8, -240, -8, -227, -8, -227, -76.8594, -226.859, -77, -106, -77, -227, 76.8594, 227, 76.8594)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(9, 11, 12), PackedInt32Array(13, 14, 10, 12, 15, 0), PackedInt32Array(16, 17, 18, 4), PackedInt32Array(18, 19, 20), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 27, 4, 24), PackedInt32Array(21, 24, 4), PackedInt32Array(20, 28, 21, 4, 18), PackedInt32Array(16, 4, 6), PackedInt32Array(16, 6, 7, 10), PackedInt32Array(10, 9, 12), PackedInt32Array(13, 0, 3), PackedInt32Array(13, 3, 29)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-250, 101, -250, -100, 250, -100, 249, 100)])
-parsed_geometry_type = 1
+[ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="1_gkpw2"]
+[ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_e63ac"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_5ry4i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7n3"]
-texture = ExtResource("4_f6gyd")
+texture = ExtResource("1_gkpw2")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 1:0/0 = 0
@@ -147,43 +139,28 @@ texture = ExtResource("4_f6gyd")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_uv7n3")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_by14w"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yms7a"]
 size = Vector2(465, 165)
 
-[node name="Traincar" type="Node2D"]
-script = ExtResource("1_vncj4")
+[node name="Level" type="Node2D"]
 
-[node name="Sprite" type="Sprite2D" parent="."]
-z_index = -10
-texture = ExtResource("2_isu8i")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_mv5gb")
-
-[node name="Wall Collisions" type="StaticBody2D" parent="NavigationRegion2D"]
-visible = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavigationRegion2D/Wall Collisions"]
-polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="NavigationRegion2D/Wall Collisions"]
-scale = Vector2(-1, -1)
-polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81, -237, -81)
-
-[node name="TileMapLayer" type="TileMapLayer" parent="NavigationRegion2D"]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, -9)
-tile_map_data = PackedByteArray("AAD6/wUAAAABAAEAAAD6/wQAAAABAAEAAAD7/wMAAAABAAEAAAD7/wQAAAABAAEAAAD7/wUAAAABAAEAAAD8/wUAAAABAAEAAAD8/wQAAAABAAEAAAD8/wMAAAABAAEAAAD7/wIAAAABAAEAAAD8/wIAAAABAAEAAAD6//v/AAABAAEAAAD6//z/AAABAAEAAAD6//3/AAABAAEAAAD6//7/AAABAAEAAAD7//7/AAABAAEAAAD7////AAABAAEAAAD7//3/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//z/AAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAD6/wUAAAABAAEAAAD6/wQAAAABAAEAAAD7/wMAAAABAAEAAAD7/wQAAAABAAEAAAD7/wUAAAABAAEAAAD8/wUAAAABAAEAAAD8/wQAAAABAAEAAAD8/wMAAAABAAEAAAD7/wIAAAABAAEAAAD8/wIAAAABAAEAAAD6//v/AAABAAEAAAD6//z/AAABAAEAAAD6//3/AAABAAEAAAD6//7/AAABAAEAAAD7//7/AAABAAEAAAD7////AAABAAEAAAD7//3/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//z/AAABAAEAAAAEAAUAAAABAAEAAAAEAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAJAP//AAABAAEAAAAJAP7/AAABAAEAAAAJAP3/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_jkm3y")
 
 [node name="EntityContainer" type="Node2D" parent="."]
 
-[node name="Player" parent="EntityContainer" instance=ExtResource("3_7pwde")]
+[node name="Enemy" parent="EntityContainer" instance=ExtResource("2_e63ac")]
+position = Vector2(-204, 19)
 
-[node name="Enemy" parent="EntityContainer" instance=ExtResource("5_jeuxy")]
-position = Vector2(-202, -50)
+[node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_e63ac")]
+position = Vector2(213, 67)
+rotation = 2.35619
+default_equip = ExtResource("3_5ry4i")
 
 [node name="PlayArea" type="Area2D" parent="."]
-visible = false
+z_index = -100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
-shape = SubResource("RectangleShape2D_by14w")
+shape = SubResource("RectangleShape2D_yms7a")

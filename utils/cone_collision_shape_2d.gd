@@ -1,6 +1,6 @@
 @tool
 extends CollisionPolygon2D
-class_name ConeShape2D
+class_name ConeCollisionShape2D
 
 @export var cone_angle: float = PI/2
 @export var cone_distance: float = 100

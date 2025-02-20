@@ -17,8 +17,8 @@ func set_target_position(target_position: Vector2, delta: float):
     head.set_rotation_angle(angle_to_target)
     var torso_angle: float = lerp_angle(torso_rotation, angle_to_target, delta * ROTATION_SPEED)
     torso_rotation = torso_angle
-    legs.rotation = torso_angle
-    arms.rotation = lerp_angle(arms.rotation, torso_angle, delta * ARM_ROTATION_SPEED)
+    legs.global_rotation = torso_angle
+    arms.global_rotation = lerp_angle(arms.global_rotation, torso_angle, delta * ARM_ROTATION_SPEED)
 
 func set_target_position_global(target_position: Vector2, delta: float):
     var local_target_position = target_position - global_position
@@ -30,12 +30,12 @@ func set_velocity(velocity: Vector2):
 var torso_wobble: float = 0 :
     set(w):
         torso_wobble = w
-        torso.rotation = torso_rotation + torso_wobble
+        torso.global_rotation = torso_rotation + torso_wobble
 var torso_rotation: float :
     set(r):
         torso_rotation = r
-        torso.rotation = r + torso_wobble
-    get(): return torso.rotation - torso_wobble
+        torso.global_rotation = r + torso_wobble
+    get(): return torso.global_rotation - torso_wobble
 
 func set_torso_wobble(angle: float):
     torso_wobble = angle

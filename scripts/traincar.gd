@@ -2,15 +2,25 @@ extends Node2D
 class_name Traincar
 
 @onready var world: World = $".."
-@onready var entity_container: Node2D = $EntityContainer
-@onready var play_area: Area2D = $PlayArea
-@onready var play_area_shape: CollisionShape2D = $PlayArea/CollisionShape2D
-@onready var nav_region: NavigationRegion2D = $NavigationRegion2D
+@onready var nav_region: NavigationRegion2D = $NavRegion2D
 
-var pickup: Pickup = null
-func _process(_delta):
-    if not is_instance_valid(pickup): 
-        pickup = spawn_pickup()
+@onready var entity_container: Node2D = $NavRegion2D/Level/EntityContainer
+@onready var play_area: Area2D = $NavRegion2D/Level/PlayArea
+@onready var play_area_shape: CollisionShape2D = $NavRegion2D/Level/PlayArea/CollisionShape2D
+@onready var level: Node2D = $NavRegion2D/Level :
+    set(l):
+        if is_instance_valid(level):
+            nav_region.remove_child(level)
+            level.queue_free()
+        level = l
+        nav_region.add_child(level)
+        if not is_instance_valid(level): return
+        entity_container = l.get_node(^"EntityContainer")
+        play_area = l.get_node(^"PlayArea")
+        play_area_shape = l.get_node(^"PlayAreaShape")
+
+@onready var entrance: Node2D = $Entrance
+@onready var exit: Node2D = $Exit
 
 func spawn_pickup() -> Pickup:
     var pos: Vector2 = rand_point()
@@ -51,3 +61,15 @@ func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
     entities = entities.filter(func(e): return is_hostile != e.is_in_group(&"hostile"))
     if entities.size() == 0: return [source]
     return entities
+
+const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
+func spawn_player():
+    var player: Player = PLAYER_SCENE.instantiate()
+    entity_container.add_child(player)
+    player.global_position = entrance.global_position
+
+func load_level(level_path: String):
+    print(level_path)
+    var level_scene: PackedScene = load(level_path)
+    var level_node: Node2D = level_scene.instantiate()
+    level = level_node

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2ulpp2648lln"]
+
+[ext_resource type="Script" path="res://scripts/traincar.gd" id="1_vncj4"]
+[ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/traincar.png" id="2_isu8i"]
+[ext_resource type="PackedScene" uid="uid://bjk0kamlolv4t" path="res://scenes/levels/level_empty.tscn" id="3_mhryw"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mv5gb"]
+vertices = PackedVector2Array(225, -6, 237.531, -6, 237.469, 6, 225, 6, 225, 75, -225, 75, -225, 6, -225, -6, -238, 6, -238, -6, 225, -75, -225, -75)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(6, 8, 9, 7), PackedInt32Array(10, 0, 7, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-250, 101, -250, -100, 250, -100, 249, 100)])
+parsed_geometry_type = 1
+agent_radius = 12.0
+
+[node name="Traincar" type="Node2D"]
+script = ExtResource("1_vncj4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -10
+texture = ExtResource("2_isu8i")
+
+[node name="NavRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_mv5gb")
+
+[node name="Wall Collisions" type="StaticBody2D" parent="NavRegion2D"]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavRegion2D/Wall Collisions"]
+polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="NavRegion2D/Wall Collisions"]
+scale = Vector2(-1, -1)
+polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81, -237, -81)
+
+[node name="Level" parent="NavRegion2D" instance=ExtResource("3_mhryw")]
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(-238, 0)
+
+[node name="Exit" type="Node2D" parent="."]
+position = Vector2(238, 0)
