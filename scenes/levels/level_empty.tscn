@@ -8,13 +8,13 @@ size = Vector2(465, 165)
 
 [node name="Level" type="Node2D"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
 position = Vector2(0, -9)
 tile_set = SubResource("TileSet_jkm3y")
 
 [node name="EntityContainer" type="Node2D" parent="."]
 
-[node name="PlayArea" type="Area2D" parent="."]
+[node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
 z_index = -100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]

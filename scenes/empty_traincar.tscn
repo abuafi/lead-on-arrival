@@ -1,40 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2ulpp2648lln"]
+[gd_scene load_steps=7 format=3 uid="uid://d2ulpp2648lln"]
 
 [ext_resource type="Script" path="res://scripts/traincar.gd" id="1_vncj4"]
 [ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/traincar.png" id="2_isu8i"]
 [ext_resource type="PackedScene" uid="uid://bjk0kamlolv4t" path="res://scenes/levels/level_empty.tscn" id="3_mhryw"]
+[ext_resource type="Texture2D" uid="uid://blinvloaec21v" path="res://assets/traincar_walls.png" id="4_c38rs"]
+[ext_resource type="PackedScene" uid="uid://h8b0crtlhw2v" path="res://scenes/door.tscn" id="5_6illw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_mv5gb"]
-vertices = PackedVector2Array(225, -6, 237.531, -6, 237.469, 6, 225, 6, 225, 75, -225, 75, -225, 6, -225, -6, -238, 6, -238, -6, 225, -75, -225, -75)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(6, 8, 9, 7), PackedInt32Array(10, 0, 7, 11)])
+vertices = PackedVector2Array(225, 76, -225, 76, -225, -76, 225, -76)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-250, 101, -250, -100, 250, -100, 249, 100)])
 parsed_geometry_type = 1
+source_geometry_mode = 1
+source_geometry_group_name = &"collision_geometry"
 agent_radius = 12.0
 
 [node name="Traincar" type="Node2D"]
 script = ExtResource("1_vncj4")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Walls" type="Sprite2D" parent="."]
+z_index = 10
+texture = ExtResource("4_c38rs")
+
+[node name="Floor" type="Sprite2D" parent="."]
 z_index = -10
 texture = ExtResource("2_isu8i")
 
 [node name="NavRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_mv5gb")
 
-[node name="Wall Collisions" type="StaticBody2D" parent="NavRegion2D"]
+[node name="Wall Collisions" type="StaticBody2D" parent="NavRegion2D" groups=["collision_geometry"]]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavRegion2D/Wall Collisions"]
+position = Vector2(0, -1)
 polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="NavRegion2D/Wall Collisions"]
+position = Vector2(0, 1)
 scale = Vector2(-1, -1)
 polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81, -237, -81)
 
 [node name="Level" parent="NavRegion2D" instance=ExtResource("3_mhryw")]
 
-[node name="Entrance" type="Node2D" parent="."]
-position = Vector2(-238, 0)
+[node name="CompletionTimer" type="Timer" parent="."]
+wait_time = 0.1
 
-[node name="Exit" type="Node2D" parent="."]
-position = Vector2(238, 0)
+[node name="Entrance" parent="." instance=ExtResource("5_6illw")]
+position = Vector2(-243, 0)
+
+[node name="Exit" parent="." instance=ExtResource("5_6illw")]
+position = Vector2(244, 0)

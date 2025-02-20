@@ -19,8 +19,8 @@ class_name Traincar
         play_area = l.get_node(^"PlayArea")
         play_area_shape = l.get_node(^"PlayAreaShape")
 
-@onready var entrance: Node2D = $Entrance
-@onready var exit: Node2D = $Exit
+@onready var entrance: Door = $Entrance
+@onready var exit: Door = $Exit
 
 func spawn_pickup() -> Pickup:
     var pos: Vector2 = rand_point()
@@ -69,7 +69,42 @@ func spawn_player():
     player.global_position = entrance.global_position
 
 func load_level(level_path: String):
-    print(level_path)
     var level_scene: PackedScene = load(level_path)
     var level_node: Node2D = level_scene.instantiate()
     level = level_node
+
+func get_hostiles() -> Array[CharacterEntity]:
+    var entities: Array[CharacterEntity] = character_entities()
+    entities = entities.filter(func(e): return e.is_in_group(&"hostile"))
+    return entities
+
+@onready var completion_timer: Timer = $CompletionTimer
+var completed: bool = false :
+    set(c):
+        completed = c
+        if completed: deactivate()
+        if not completed: activate()
+
+func activate():
+    # TODO bake navigation map
+    # TODO Open left door when ready
+    completion_timer.timeout.connect(check_level_completion)
+    completion_timer.start()
+
+func _on_player_passed_right(player: Player):
+    exit.close()
+    level_passed.emit(player)
+
+func deactivate():
+    exit.open()
+    print(exit)
+    exit.player_passed_right.connect(
+        _on_player_passed_right, 
+        ConnectFlags.CONNECT_ONE_SHOT)
+    completion_timer.stop()
+    
+func check_level_completion():
+    if get_hostiles().size() == 0:
+        completed = true
+
+signal level_passed(player: Player)
