@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjdf6b1rsf335"]
+[gd_scene load_steps=29 format=3 uid="uid://cjdf6b1rsf335"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_5qak0"]
 [ext_resource type="Script" path="res://scripts/body_parts/body.gd" id="2_e2qft"]
 [ext_resource type="Script" path="res://utils/cone_shape_2d.gd" id="3_7mh2a"]
 [ext_resource type="Script" path="res://scripts/body_parts/legs.gd" id="3_gv56b"]
@@ -114,9 +115,10 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nelab"]
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["hostile"]]
 motion_mode = 1
 script = ExtResource("1_jhjaa")
+default_equip = ExtResource("2_5qak0")
 
 [node name="Body" type="Node2D" parent="."]
 script = ExtResource("2_e2qft")
@@ -128,13 +130,14 @@ script = ExtResource("3_gv56b")
 sprite_frames = SubResource("SpriteFrames_1o4fj")
 animation = &"walk"
 
-[node name="Arms" type="Node2D" parent="Body"]
+[node name="Arms" type="Node2D" parent="Body" node_paths=PackedStringArray("current_sprite")]
 script = ExtResource("5_ujaj2")
+current_sprite = NodePath("ArmsSingleSprite")
 
 [node name="ArmsSprite" type="Sprite2D" parent="Body/Arms"]
 texture = ExtResource("5_4s0w1")
 
-[node name="ArmsSingleSprite" type="Sprite2D" parent="Body/Arms" groups=["hostile"]]
+[node name="ArmsSingleSprite" type="Sprite2D" parent="Body/Arms"]
 texture = ExtResource("7_cev4f")
 
 [node name="WeaponMarker" type="Marker2D" parent="Body/Arms/ArmsSingleSprite"]

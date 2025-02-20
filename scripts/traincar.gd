@@ -48,6 +48,6 @@ func character_entities() -> Array[CharacterEntity]:
 func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
     var is_hostile: bool = source.is_in_group(&"hostile")
     var entities: Array[CharacterEntity] = character_entities()
-    if entities.size() == 0: return [source]
     entities = entities.filter(func(e): return is_hostile != e.is_in_group(&"hostile"))
+    if entities.size() == 0: return [source]
     return entities

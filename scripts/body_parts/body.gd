@@ -42,7 +42,12 @@ func set_torso_wobble(angle: float):
     pass
 
 func equip_weapon(weapon: Weapon):
-    print(entity)
-    weapon.entity = entity
-    weapon.body = self
+    if is_instance_valid(weapon):
+        weapon.entity = entity
+        weapon.body = self
     arms.set_weapon(weapon)
+
+func has_weapon() -> bool:
+    return arms.has_weapon()
+func get_weapon() -> Weapon:
+    return arms.get_weapon()

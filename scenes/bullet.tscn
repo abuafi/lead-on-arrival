@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqg2rc3bnbbos"]
+[gd_scene load_steps=6 format=3 uid="uid://dqg2rc3bnbbos"]
 
 [ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_ca5ci"]
 [ext_resource type="Texture2D" uid="uid://cvvvmtc0t3yrv" path="res://assets/bullet.png" id="2_eguhd"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7wmq6"]
+friction = 0.0
+bounce = 1.0
+
 [sub_resource type="Curve" id="Curve_wftgh"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.997497, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8n1um"]
@@ -13,6 +17,7 @@ height = 16.0
 
 [node name="Bullet" type="RigidBody2D"]
 mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_7wmq6")
 gravity_scale = 0.0
 script = ExtResource("1_ca5ci")
 
@@ -20,6 +25,7 @@ script = ExtResource("1_ca5ci")
 texture = ExtResource("2_eguhd")
 
 [node name="Trail" type="Line2D" parent="."]
+position = Vector2(0, 8)
 width_curve = SubResource("Curve_wftgh")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

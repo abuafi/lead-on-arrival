@@ -2,14 +2,20 @@ extends Node2D
 class_name Arms
 
 var sprites: Array[Sprite2D]
-@onready var current_sprite: Sprite2D = $ArmsSprite
+@export var current_sprite: Sprite2D
 @onready var weapon_container: Node2D = $WeaponContainer
+@onready var body: Body = $".."
 
 func _ready():
     for child: Node in get_children():
         if child is Sprite2D:
             sprites.append(child)
             child.hide()
+    
+    if has_weapon():
+        var weapon: Weapon = get_weapon()
+        body.call_deferred(&"equip_weapon", weapon)
+
     current_sprite.show()
 
 func set_arms_sprite(arms_sprite: NodePath = ^"ArmsSprite"):
@@ -21,14 +27,16 @@ func set_arms_sprite(arms_sprite: NodePath = ^"ArmsSprite"):
         var marker: Marker2D = sprite.get_node(^"WeaponMarker")
         weapon_container.transform = marker.transform
 
+func has_weapon() -> bool:
+    return weapon_container.get_child_count() > 0
 func get_weapon() -> Weapon:
     return weapon_container.get_child(0)
 
 func discard_weapon() -> void:
     var weapon: Weapon = get_weapon()
     if is_instance_valid(weapon): 
-        weapon.discard()
         weapon_container.remove_child(weapon)
+        weapon.discard()
 
 func set_weapon(weapon: Weapon):
     discard_weapon()

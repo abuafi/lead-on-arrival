@@ -3,22 +3,23 @@ class_name Weapon
 
 @onready var muzzle: Marker2D = $Muzzle
 
-@export var weapon_resource: PackedEquippablePickup = null
+var weapon_resource: PackedEquippablePickup = null
 
 var entity: CharacterEntity = null
 var body: Body = null
 
 func discard():
-    print("Weapon discarded")
+    if body.has_weapon(): body.equip_weapon(null)
     queue_free()
 
 func _input(event: InputEvent) -> void:
+    if entity is not Player: return
     if not is_inside_tree(): return
     if event.is_action_pressed(&"shoot"):
-        handle_shoot()
+        fire()
 
 const BULLET_SCENE: PackedScene = preload("res://scenes/bullet.tscn")
-func handle_shoot():
+func fire():
     var bullet: Bullet = BULLET_SCENE.instantiate()
     var traincar: Traincar = entity.get_current_traincar()
     
@@ -26,3 +27,4 @@ func handle_shoot():
     var initial_target: CharacterEntity = initial_targets.pick_random() # TODO change this later
     traincar.add_entity(bullet, muzzle)
     bullet.set_target(initial_target)
+    discard()
