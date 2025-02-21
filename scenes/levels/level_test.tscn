@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://dsmnj7wwgpwfk"]
+[gd_scene load_steps=6 format=4 uid="uid://dsmnj7wwgpwfk"]
 
 [ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="1_gkpw2"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_e63ac"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_qhfc4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7n3"]
 texture = ExtResource("1_gkpw2")
@@ -153,11 +152,6 @@ tile_set = SubResource("TileSet_jkm3y")
 
 [node name="Enemy" parent="EntityContainer" instance=ExtResource("2_e63ac")]
 position = Vector2(-204, 19)
-default_equip = ExtResource("3_qhfc4")
-
-[node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_e63ac")]
-position = Vector2(213, 67)
-rotation = 2.35619
 
 [node name="PlayArea" type="Area2D" parent="."]
 z_index = -100

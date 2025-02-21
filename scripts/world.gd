@@ -6,13 +6,27 @@ class_name World
 @onready var next_car: Traincar = null
 @onready var camera: GameCamera = $Camera2D
 
+@export var starting_level = 0
+
 var player: Player = null
 var level: int = 0
 
+func get_level_name(_level: int) -> String:
+    _level += starting_level
+    if _level == 0: return "level_empty"
+    if _level == 1: return "level_test"
+    # TODO prevent next level from ticking
+    else: return "level_empty"
+
 func _ready():
     player = PLAYER_SCENE.instantiate()
+
+    var level_name_first: String = get_level_name(level)
+    load_first_level(level_name_first)
     activate_level()
-    load_next_level("level_test")
+
+    var level_name_next: String = get_level_name(level + 1)
+    load_next_level(level_name_next)
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/player.tscn")
 
@@ -51,7 +65,8 @@ func transition_next_car(_player: Player):
     prev_car = current_car
     current_car = next_car
     next_car = null 
-    load_next_level("level_empty")
+    var level_name: String = get_level_name(level + 1)
+    load_next_level(level_name)
     camera.following = _player
     activate_level()
 
@@ -59,7 +74,10 @@ func _on_level_started(_player: Player):
     camera.following = null
     camera.target_x = traincar_position(level)
 
-# TODO automatically determine next level from level int
+func load_first_level(level_name: String):
+    var level_path: String = "res://scenes/levels/" + level_name + ".tscn"
+    current_car.load_level(level_path)
+
 func load_next_level(level_name: String):
     var level_path: String = "res://scenes/levels/" + level_name + ".tscn"
     if not is_instance_valid(next_car):

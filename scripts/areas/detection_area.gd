@@ -8,6 +8,10 @@ signal player_detected(player: Player)
 var player_in_area: Player = null
 var detected: bool = false
 
+func seen() -> Player:
+    if detected: return player_in_area
+    else: return null
+
 func _ready():
     body_entered.connect(_on_body_entered)
     body_exited.connect(_on_body_exited)
@@ -22,7 +26,6 @@ func _on_body_exited(body: Node2D):
         detected = false
 
 func _physics_process(_delta: float):
-    if detected: return
     if not is_instance_valid(player_in_area): return
     raycast.target_position = player_in_area.global_position * global_transform
     raycast.force_raycast_update()
@@ -30,3 +33,4 @@ func _physics_process(_delta: float):
     if first_collider == player_in_area:
         detected = true
         player_detected.emit(player_in_area)
+    else: detected = false

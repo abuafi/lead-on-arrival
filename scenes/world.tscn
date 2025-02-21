@@ -7,6 +7,7 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_arijn")
+starting_level = 1
 
 [node name="Traincar" parent="." instance=ExtResource("2_eismd")]
 

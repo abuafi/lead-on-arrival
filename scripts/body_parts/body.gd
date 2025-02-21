@@ -7,12 +7,14 @@ class_name Body
 @onready var arms: Arms = $Arms
 @onready var entity: CharacterEntity = $".."
 
+var angle_to_target: float
+
 const ROTATION_SPEED: float = 15.
 const ARM_ROTATION_SPEED: float = 30.
 
 func set_target_position(target_position: Vector2, delta: float):
     target_position = target_position.normalized()
-    var angle_to_target: float = atan2(target_position.y, target_position.x)
+    angle_to_target = atan2(target_position.y, target_position.x)
     angle_to_target -= PI/2
     head.set_rotation_angle(angle_to_target)
     var torso_angle: float = lerp_angle(torso_rotation, angle_to_target, delta * ROTATION_SPEED)
@@ -54,3 +56,10 @@ func has_weapon() -> bool:
     return arms.has_weapon()
 func get_weapon() -> Weapon:
     return arms.get_weapon()
+
+func rotation_error() -> float:
+    return angle_difference(
+        torso_rotation,
+        angle_to_target
+    )
+    

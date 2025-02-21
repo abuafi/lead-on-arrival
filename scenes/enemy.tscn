@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjdf6b1rsf335"]
+[gd_scene load_steps=35 format=3 uid="uid://cjdf6b1rsf335"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
@@ -12,6 +12,13 @@
 [ext_resource type="Script" path="res://scripts/body_parts/arms.gd" id="5_ujaj2"]
 [ext_resource type="Texture2D" uid="uid://crwemgf5uf1u0" path="res://assets/player_body.png" id="6_qtlf1"]
 [ext_resource type="Texture2D" uid="uid://b5mk6wms4jxt3" path="res://assets/arms_single.png" id="7_cev4f"]
+[ext_resource type="Script" path="res://scripts/behaviour/behaviour_tree.gd" id="13_xuvim"]
+[ext_resource type="Script" path="res://scripts/behaviour/decorators/repeat.gd" id="14_m4o3r"]
+[ext_resource type="Script" path="res://scripts/behaviour/composites/sequence.gd" id="15_7mui4"]
+[ext_resource type="Script" path="res://scripts/behaviour/composites/selector.gd" id="15_w81pr"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/has_weapon.gd" id="16_uy51o"]
+[ext_resource type="Script" path="res://scripts/behaviour/decorators/invert.gd" id="17_3en53"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/debug.gd" id="17_xfpwf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tycaw"]
 atlas = ExtResource("4_jbsv8")
@@ -175,3 +182,35 @@ shape = SubResource("CircleShape2D_nelab")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 10.0
 debug_enabled = true
+
+[node name="BehaviourTree" type="Node" parent="."]
+script = ExtResource("13_xuvim")
+
+[node name="Repeat" type="Node" parent="BehaviourTree"]
+script = ExtResource("14_m4o3r")
+
+[node name="Selector" type="Node" parent="BehaviourTree/Repeat"]
+script = ExtResource("15_w81pr")
+
+[node name="SequenceWithWeapon" type="Node" parent="BehaviourTree/Repeat/Selector"]
+script = ExtResource("15_7mui4")
+
+[node name="HasWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon"]
+script = ExtResource("16_uy51o")
+
+[node name="Debug" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon"]
+script = ExtResource("17_xfpwf")
+print_string = "Has weapon"
+
+[node name="SequenceWithoutWeapon" type="Node" parent="BehaviourTree/Repeat/Selector"]
+script = ExtResource("15_7mui4")
+
+[node name="Inverted" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
+script = ExtResource("17_3en53")
+
+[node name="HasWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Inverted"]
+script = ExtResource("16_uy51o")
+
+[node name="Debug" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
+script = ExtResource("17_xfpwf")
+print_string = "Does not have weapon"
