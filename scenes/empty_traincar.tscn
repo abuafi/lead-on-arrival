@@ -31,6 +31,8 @@ navigation_polygon = SubResource("NavigationPolygon_mv5gb")
 
 [node name="Wall Collisions" type="StaticBody2D" parent="NavRegion2D" groups=["collision_geometry"]]
 visible = false
+collision_layer = 2
+collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavRegion2D/Wall Collisions"]
 position = Vector2(0, -1)

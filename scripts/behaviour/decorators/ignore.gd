@@ -1,5 +1,5 @@
 extends BehaviourDecorator
-class_name Inverted
+class_name Ignore
 
 func enter() -> void:
     super.enter()
@@ -12,4 +12,4 @@ func _node_failed(_arg: BehaviourNode):
     node_passed()
 
 func _node_passed(_arg: BehaviourNode):
-    node_failed()
+    node_passed()

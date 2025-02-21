@@ -1,17 +1,22 @@
-# Chase the detected player.
 extends BehaviourLeaf
-class_name ChasePlayer
+class_name FollowNoise
 
 func enter(): 
     super.enter()
 
 const SPEED: float = 150.0
+const MIN_DISTANCE: float = 50.
 func bt_physics_process(_delta: float) -> void:
-    var target_player: Player = entity.detected_player
-    if not is_instance_valid(target_player): 
+    if entity is not Enemy or not entity.has_heard_noise(): 
         node_failed()
         return
-    nav.target_position = target_player.global_position
+
+    var target_position: Vector2 = entity.last_heard_noise
+    if global_position.distance_to(target_position) < MIN_DISTANCE:
+        node_passed()
+        return
+    
+    nav.target_position = target_position
     var next_pos: Vector2 = nav.get_next_path_position()
     body.set_target_position_global(next_pos, _delta)
     var dir: Vector2 = next_pos - global_position

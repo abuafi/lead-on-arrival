@@ -1,15 +1,15 @@
 TODO
 
 - ~~Level system and transition~~
-- Enemy AI with behaviour tree
+- ~~Enemy AI with behaviour tree~~
 - ~~Bullet target switching~~
+- Sprites for obstacles and geometry
 - Actually building the levels
 - Dodge move
 - Kick move
 
 - Death animations and effects
 - Reload level on death
-- Sprites for obstacles and geometry
 - Sniper weapon
 - Shotgun weapon
 - Prevent bullet clipping in walls
@@ -21,3 +21,8 @@ TODO
 - Main menu
 - Sound effects
 - Music
+
+Collision masks:
+- 1: Entities (Player and enemies)
+- 2: Walls and static bodies
+- 3: Low obstructions (bullets can pass but not entities)

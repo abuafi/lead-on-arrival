@@ -18,6 +18,8 @@ radius = 5.0
 height = 14.0
 
 [node name="Bullet" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 3
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_7wmq6")
 gravity_scale = 0.0
@@ -40,6 +42,8 @@ shape = SubResource("CapsuleShape2D_8n1um")
 
 [node name="BulletDetectionArea" type="Area2D" parent="."]
 rotation = 3.14159
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("3_0bf7b")
 
 [node name="ConeCollisionShape2D" type="CollisionPolygon2D" parent="BulletDetectionArea"]

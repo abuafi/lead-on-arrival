@@ -57,7 +57,7 @@ func handle_collision(collision: KinematicCollision2D):
         return 
 
 func hit_target(entity: CharacterEntity):
-    entity.queue_free()
+    entity.bullet_hit(self)
     queue_free()
 
 var target_position: Vector2 :

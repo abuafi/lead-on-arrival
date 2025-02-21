@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6dgclao5e8av"]
+
+[ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="1_7g8ti"]
+[ext_resource type="PackedScene" uid="uid://xq6qiocs1bpd" path="res://scenes/base_pickup.tscn" id="2_jj7ut"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_xbl3g"]
+
+[sub_resource type="TileSet" id="TileSet_jkm3y"]
+physics_layer_0/collision_layer = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yms7a"]
+size = Vector2(465, 165)
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
+position = Vector2(0, -9)
+tile_set = SubResource("TileSet_jkm3y")
+
+[node name="EntityContainer" type="Node2D" parent="."]
+
+[node name="Enemy" parent="EntityContainer" instance=ExtResource("1_7g8ti")]
+position = Vector2(-8, -27)
+rotation = -2.89158
+
+[node name="Pickup" parent="EntityContainer" instance=ExtResource("2_jj7ut")]
+position = Vector2(86, 31)
+pickup_resource = ExtResource("3_xbl3g")
+
+[node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
+z_index = -100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
+shape = SubResource("RectangleShape2D_yms7a")

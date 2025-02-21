@@ -11,6 +11,8 @@ size = Vector2(40, 20)
 [node name="Transition" type="Node2D"]
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 7
 
 [node name="Above" type="CollisionShape2D" parent="Boundaries"]
 position = Vector2(0, -32)

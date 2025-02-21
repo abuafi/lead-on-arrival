@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cjdf6b1rsf335"]
+[gd_scene load_steps=47 format=3 uid="uid://cjdf6b1rsf335"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/enemy_hat.png" id="2_2tia3"]
@@ -18,7 +18,19 @@
 [ext_resource type="Script" path="res://scripts/behaviour/composites/selector.gd" id="15_w81pr"]
 [ext_resource type="Script" path="res://scripts/behaviour/leaves/has_weapon.gd" id="16_uy51o"]
 [ext_resource type="Script" path="res://scripts/behaviour/decorators/invert.gd" id="17_3en53"]
-[ext_resource type="Script" path="res://scripts/behaviour/leaves/debug.gd" id="17_xfpwf"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/detected_player.gd" id="18_iqk0q"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/heard_noise.gd" id="18_ju4qv"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/fire_gun.gd" id="19_kyvda"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/follow_noise.gd" id="19_t1d62"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/face_player.gd" id="20_a3ny6"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/timeout.gd" id="21_oebm2"]
+[ext_resource type="Script" path="res://scripts/behaviour/decorators/repeat_until_signal.gd" id="23_mu23b"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/look_around.gd" id="26_h14m0"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/make_noise.gd" id="27_1pc6c"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/pickup_available.gd" id="27_a5pv1"]
+[ext_resource type="Script" path="res://scripts/behaviour/decorators/ignore.gd" id="27_pd5dj"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/go_to_pickup.gd" id="28_nl5ki"]
+[ext_resource type="Script" path="res://scripts/behaviour/decorators/interrupt_on_signal.gd" id="29_rlwxj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tycaw"]
 atlas = ExtResource("4_jbsv8")
@@ -122,6 +134,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_nelab"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["hostile"]]
+collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_jhjaa")
 
@@ -163,17 +176,19 @@ script = ExtResource("3_k7r21")
 texture = ExtResource("2_2tia3")
 
 [node name="DetectionArea" type="Area2D" parent="Body/Head"]
+collision_mask = 3
 script = ExtResource("3_sgmf2")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body/Head/DetectionArea"]
-polygon = PackedVector2Array(0, 0, 173.185, 100.034, 136.014, 146.63, 86.7615, 180.201, 29.8029, 197.767, -29.8029, 197.767, -86.7615, 180.201, -136.014, 146.63, -173.185, 100.034)
+polygon = PackedVector2Array(0, 0, 259.778, 150.051, 204.021, 219.944, 130.142, 270.302, 44.7043, 296.651, -44.7043, 296.651, -130.142, 270.302, -204.021, 219.944, -259.778, 150.051)
 script = ExtResource("3_7mh2a")
 cone_angle = 2.094
-cone_distance = 200.0
+cone_distance = 300.0
 subdivisions = 7
 
 [node name="RayCast2D" type="RayCast2D" parent="Body/Head/DetectionArea"]
 enabled = false
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -198,19 +213,120 @@ script = ExtResource("15_7mui4")
 [node name="HasWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon"]
 script = ExtResource("16_uy51o")
 
-[node name="Debug" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon"]
-script = ExtResource("17_xfpwf")
-print_string = "Has weapon"
+[node name="Selector" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon"]
+script = ExtResource("15_w81pr")
+
+[node name="SequenceFireGun" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector"]
+script = ExtResource("15_7mui4")
+
+[node name="DetectedPlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFireGun"]
+script = ExtResource("18_iqk0q")
+
+[node name="FacePlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFireGun"]
+script = ExtResource("20_a3ny6")
+
+[node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFireGun"]
+script = ExtResource("21_oebm2")
+
+[node name="FireGun" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFireGun"]
+script = ExtResource("19_kyvda")
+
+[node name="SequenceFollowNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector"]
+script = ExtResource("15_7mui4")
+
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise"]
+script = ExtResource("18_ju4qv")
+
+[node name="RepeatUntilSignal" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise"]
+script = ExtResource("23_mu23b")
+awaiting = &"player_detected"
+
+[node name="Sequence" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise/RepeatUntilSignal"]
+script = ExtResource("15_7mui4")
+
+[node name="FollowNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise/RepeatUntilSignal/Sequence"]
+script = ExtResource("19_t1d62")
+
+[node name="LookAround" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise/RepeatUntilSignal/Sequence"]
+script = ExtResource("26_h14m0")
+
+[node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithWeapon/Selector/SequenceFollowNoise/RepeatUntilSignal/Sequence"]
+script = ExtResource("21_oebm2")
+time = 0.7
 
 [node name="SequenceWithoutWeapon" type="Node" parent="BehaviourTree/Repeat/Selector"]
 script = ExtResource("15_7mui4")
 
-[node name="Inverted" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
+[node name="HasNoWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
 script = ExtResource("17_3en53")
 
-[node name="HasWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Inverted"]
+[node name="HasWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/HasNoWeapon"]
 script = ExtResource("16_uy51o")
 
-[node name="Debug" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
-script = ExtResource("17_xfpwf")
-print_string = "Does not have weapon"
+[node name="Selector" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
+script = ExtResource("15_w81pr")
+
+[node name="Sequence" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
+script = ExtResource("15_7mui4")
+
+[node name="SelectorIsAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+script = ExtResource("15_w81pr")
+
+[node name="DetectedPlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SelectorIsAware"]
+script = ExtResource("18_iqk0q")
+
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SelectorIsAware"]
+script = ExtResource("18_ju4qv")
+
+[node name="Ignore" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+script = ExtResource("27_pd5dj")
+
+[node name="SequenceMakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore"]
+script = ExtResource("15_7mui4")
+
+[node name="NotHeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise"]
+script = ExtResource("17_3en53")
+
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise/NotHeardNoise"]
+script = ExtResource("18_ju4qv")
+
+[node name="MakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise"]
+script = ExtResource("27_1pc6c")
+
+[node name="SequencePickWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+script = ExtResource("15_7mui4")
+
+[node name="PickupAvailable" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SequencePickWeapon"]
+script = ExtResource("27_a5pv1")
+
+[node name="GoToPickup" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SequencePickWeapon"]
+script = ExtResource("28_nl5ki")
+
+[node name="InterruptOnSignal" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
+script = ExtResource("29_rlwxj")
+awaiting = &"aware"
+
+[node name="SequenceSweepLook" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal"]
+script = ExtResource("15_7mui4")
+
+[node name="LookAroundCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("26_h14m0")
+speed = 1.571
+rotation_amount = 1.571
+
+[node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("21_oebm2")
+
+[node name="LookAroundCCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("26_h14m0")
+speed = 1.571
+rotation_clockwise = false
+rotation_amount = 3.142
+
+[node name="Timeout2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("21_oebm2")
+
+[node name="LookAroundCW2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("26_h14m0")
+speed = 1.571
+rotation_amount = 1.571

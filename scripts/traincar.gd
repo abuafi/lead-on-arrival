@@ -17,16 +17,16 @@ class_name Traincar
         if not is_instance_valid(level): return
         entity_container = l.get_node(^"EntityContainer")
         play_area = l.get_node(^"PlayArea")
-        play_area_shape = l.get_node(^"PlayAreaShape")
+        play_area_shape = l.get_node(^"PlayArea/CollisionShape2D")
 
 @onready var entrance: Door = $Entrance
 @onready var exit: Door = $Exit
 
-func spawn_pickup() -> Pickup:
-    var pos: Vector2 = rand_point()
-    const test_pickup: PackedPickup = preload("res://resources/gun_pickup.tres")
-    var new_pickup: Pickup = Pickup.from_packed(test_pickup)
-    new_pickup.position = pos 
+func spawn_pickup(packed: PackedPickup, global_pos: Vector2) -> Pickup:
+    if not global_pos.is_finite():
+        global_pos = rand_point()
+    var new_pickup: Pickup = Pickup.from_packed(packed)
+    new_pickup.global_position = global_pos 
     entity_container.add_child(new_pickup)
     return new_pickup
 
@@ -54,6 +54,14 @@ func character_entities() -> Array[CharacterEntity]:
         .filter(func (e): return e is CharacterEntity)
     )
     return out 
+
+func get_pickups() -> Array[Pickup]:
+    var out: Array[Pickup] = []
+    out.assign(entity_container
+        .get_children()
+        .filter(func (e): return e is Pickup)
+    )
+    return out
 
 func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
     var is_hostile: bool = source.is_in_group(&"hostile")
@@ -87,17 +95,33 @@ func activate():
     
 func _activate_on_bake_finished():
     entrance.open()
-    entrance.player_passed_right.connect(_on_entrance_player_passed_right)
+    entrance.player_passed_right.connect(
+        _on_entrance_player_passed_right, 
+        ConnectFlags.CONNECT_ONE_SHOT)
     completion_timer.timeout.connect(check_level_completion)
     completion_timer.start()
 
 func _on_entrance_player_passed_right(player: Player):
     entrance.close()
     level_started.emit(player)
+    get_tree().create_timer(1.).timeout.connect(func():
+        if player.global_position.x < entrance.global_position.x:
+            entrance.open()
+            entrance.player_passed_right.connect(
+                _on_entrance_player_passed_right, 
+                ConnectFlags.CONNECT_ONE_SHOT)
+    )
 
 func _on_exit_player_passed_right(player: Player):
     exit.close()
     level_passed.emit(player)
+    get_tree().create_timer(1.).timeout.connect(func():
+        if player.global_position.x < exit.global_position.x:
+            exit.open()
+            exit.player_passed_right.connect(
+                _on_exit_player_passed_right, 
+                ConnectFlags.CONNECT_ONE_SHOT)
+    )
 
 func deactivate():
     exit.open()
@@ -112,3 +136,29 @@ func check_level_completion():
 
 signal level_passed(player: Player)
 signal level_started(player: Player)
+
+signal noise(position: Vector2)
+
+func make_noise(node: Node2D):
+    noise.emit(node.global_position)
+
+func has_pickup() -> bool:
+    return get_pickups().size() > 0
+
+func closest_pickup(pos: Vector2):
+    var pickups: Array[Pickup] = get_pickups()
+    if pickups.size() == 0:
+        return null
+    elif pickups.size() == 1:
+        return pickups[0]
+    var distances: Array[float] = []
+    distances.assign(pickups.map(func(t): return t.global_position.distance_squared_to(pos)))
+    var indices: Array[int] = [] 
+    indices.assign(range(pickups.size()))
+    var closest_idx: int = indices.reduce(
+        func(acc: int, val: int):
+            if distances[val] < distances[acc]:
+                return val
+            else: return acc, 
+        0)
+    return pickups[closest_idx]

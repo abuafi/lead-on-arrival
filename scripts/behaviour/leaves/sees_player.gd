@@ -8,8 +8,8 @@ func enter():
         await entity.ready
         node_failed()
         return
-    var player: Player = detection_area.seen()
-    if is_instance_valid(player): 
+    if is_instance_valid(detection_area.seen()): 
+        var player: Player = detection_area.seen()
         entity.detected_player = player
         node_passed()
     else: node_failed()

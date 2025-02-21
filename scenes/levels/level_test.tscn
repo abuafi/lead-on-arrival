@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://dsmnj7wwgpwfk"]
+[gd_scene load_steps=8 format=4 uid="uid://dsmnj7wwgpwfk"]
 
 [ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="1_gkpw2"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_e63ac"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_qhfc4"]
+[ext_resource type="PackedScene" uid="uid://xq6qiocs1bpd" path="res://scenes/base_pickup.tscn" id="4_un6yv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7n3"]
 texture = ExtResource("1_gkpw2")
@@ -135,7 +137,8 @@ texture = ExtResource("1_gkpw2")
 7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 
 [sub_resource type="TileSet" id="TileSet_jkm3y"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_uv7n3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yms7a"]
@@ -152,6 +155,20 @@ tile_set = SubResource("TileSet_jkm3y")
 
 [node name="Enemy" parent="EntityContainer" instance=ExtResource("2_e63ac")]
 position = Vector2(-204, 19)
+default_equip = ExtResource("3_qhfc4")
+
+[node name="Enemy2" parent="EntityContainer" instance=ExtResource("2_e63ac")]
+position = Vector2(121, 42)
+rotation = -2.03154
+default_equip = ExtResource("3_qhfc4")
+
+[node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_e63ac")]
+position = Vector2(4.00002, 61)
+rotation = -3.81068
+
+[node name="Pickup" parent="EntityContainer" instance=ExtResource("4_un6yv")]
+position = Vector2(47, 66)
+pickup_resource = ExtResource("3_qhfc4")
 
 [node name="PlayArea" type="Area2D" parent="."]
 z_index = -100

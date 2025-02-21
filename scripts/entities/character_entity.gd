@@ -6,7 +6,13 @@ class_name CharacterEntity
 
 @export var default_equip: PackedEquippablePickup = null
 
+signal picked_weapon(weapon: Weapon)
+
 var current_traincar: Traincar = null
+
+func pickup_weapon(weapon: Weapon):
+    body.equip_weapon(weapon)
+    picked_weapon.emit(weapon)
 
 func get_current_traincar() -> Traincar:
     return current_traincar
@@ -31,3 +37,13 @@ func apply_forces():
         if not prev_position.is_equal_approx(global_position):
             moved.emit(global_position)
     else: move_and_slide()
+
+func bullet_hit(bullet: Bullet):
+    var dir: Vector2 = bullet.global_position - global_position
+    dir = - dir.normalized()
+    body.drop_weapon(dir)
+    queue_free()
+
+func make_noise():
+    get_current_traincar().make_noise(self)
+    

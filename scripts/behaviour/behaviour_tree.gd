@@ -31,10 +31,10 @@ func transition_upper(node: BehaviourNode):
     # print(path_to_node, " ", idx)
     for i: int in range(idx + 1, path_to_node.size()):
         var lower_node: BehaviourNode = path_to_node[i]
-        # print("exiting from upper ", lower_node)
         lower_node.exit()
-    path_to_node = path_to_node.slice(0, idx + 1)
+    path_to_node = path_to_node.slice(0, idx)
     # print(path_to_node)
+    current.exit()
     current = node
 
 func _on_node_finished(node: BehaviourNode):
@@ -50,7 +50,8 @@ func _physics_process(delta):
     if current.active: current.bt_physics_process(delta)
 
 func _connect_once(_signal: Signal, _callback: Callable):
-    _signal.connect(
-        _callback,
-        ConnectFlags.CONNECT_ONE_SHOT
-    )
+    if not _signal.is_connected(_callback):
+        _signal.connect(
+            _callback,
+            ConnectFlags.CONNECT_ONE_SHOT
+        )

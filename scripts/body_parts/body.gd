@@ -59,7 +59,9 @@ func get_weapon() -> Weapon:
 
 func rotation_error() -> float:
     return angle_difference(
-        torso_rotation,
+        arms.global_rotation,
         angle_to_target
     )
     
+func drop_weapon(direction: Vector2):
+    arms.drop_weapon(direction)

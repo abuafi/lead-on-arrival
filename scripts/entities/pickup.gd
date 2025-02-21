@@ -1,4 +1,4 @@
-extends Node2D
+extends RigidBody2D
 class_name Pickup
 
 @export var pickup_resource: PackedPickup
@@ -18,7 +18,7 @@ func _ready():
     pickup_area.body_entered.connect(_on_area_body_entered)
 
 func _on_area_body_entered(body: Node2D):
-    if body is Player:
-        var player: Player = body
-        pickup_resource.on_pickup(player)
+    if body is CharacterEntity:
+        var entity: CharacterEntity = body
+        pickup_resource.on_pickup(entity)
         queue_free()

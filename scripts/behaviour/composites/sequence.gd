@@ -8,10 +8,17 @@ func bt_next() -> BehaviourNode:
         node_passed()
         return null
     var next: BehaviourNode = super.bt_next()
-    next.failed.connect(
-        child_failed,
-        ConnectFlags.CONNECT_ONE_SHOT)
+    if not next.failed.is_connected(child_failed):
+        next.failed.connect(
+            child_failed,
+            ConnectFlags.CONNECT_ONE_SHOT)
     return next
+
+func exit():
+    super.exit()
+    for child: BehaviourNode in children:
+        if child.failed.is_connected(child_failed):
+            child.failed.disconnect(child_failed)
 
 func child_failed(_child: BehaviourNode):
     node_failed()

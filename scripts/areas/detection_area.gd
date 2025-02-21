@@ -28,9 +28,19 @@ func _on_body_exited(body: Node2D):
 func _physics_process(_delta: float):
     if not is_instance_valid(player_in_area): return
     raycast.target_position = player_in_area.global_position * global_transform
-    raycast.force_raycast_update()
-    var first_collider: Object = raycast.get_collider()
-    if first_collider == player_in_area:
+    if player_in_ray():
         detected = true
         player_detected.emit(player_in_area)
     else: detected = false
+
+func player_in_ray() -> bool:
+    raycast.force_raycast_update()
+    var first_collider: Node2D = raycast.get_collider()
+    if not is_instance_valid(first_collider): return false
+    while first_collider.is_in_group(&"hostile") and first_collider is CollisionObject2D:
+        raycast.add_exception(first_collider)
+        raycast.force_raycast_update()
+        first_collider = raycast.get_collider()
+        if not is_instance_valid(first_collider): return false
+    return first_collider == player_in_area
+    

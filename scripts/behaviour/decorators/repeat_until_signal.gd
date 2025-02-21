@@ -5,15 +5,15 @@ class_name RepeatUntilSignal
 
 func enter() -> void:
     super.enter()
-    entity.body.connect(
+    entity.connect(
         awaiting, 
         _on_signal_emitted,
         ConnectFlags.CONNECT_ONE_SHOT)
 
 func exit():
     super.exit()
-    if child.is_connected(awaiting, _on_signal_emitted):
-        child.disconnect(awaiting, _on_signal_emitted)
+    if entity.is_connected(awaiting, _on_signal_emitted):
+        entity.disconnect(awaiting, _on_signal_emitted)
 
-func _on_signal_emitted():
+func _on_signal_emitted(_arg):
     node_passed()
