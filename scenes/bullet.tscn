@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqg2rc3bnbbos"]
+[gd_scene load_steps=9 format=3 uid="uid://dqg2rc3bnbbos"]
 
 [ext_resource type="Script" path="res://scripts/entities/bullet.gd" id="1_ca5ci"]
-[ext_resource type="Texture2D" uid="uid://cvvvmtc0t3yrv" path="res://assets/bullet.png" id="2_eguhd"]
+[ext_resource type="Texture2D" uid="uid://cvvvmtc0t3yrv" path="res://assets/sprites/bullet.png" id="2_eguhd"]
 [ext_resource type="Script" path="res://scripts/areas/bullet_detection_area.gd" id="3_0bf7b"]
 [ext_resource type="Script" path="res://utils/cone_collision_shape_2d.gd" id="4_2do1p"]
+[ext_resource type="AudioStream" uid="uid://dtnby6i10wr0s" path="res://assets/sfx/cogs.mp3" id="5_ou2co"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7wmq6"]
 friction = 0.0
@@ -24,8 +25,6 @@ mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_7wmq6")
 gravity_scale = 0.0
 script = ExtResource("1_ca5ci")
-trail_points = null
-trail_length = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_eguhd")
@@ -35,7 +34,7 @@ position = Vector2(0, 8)
 width_curve = SubResource("Curve_wftgh")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
+path_desired_distance = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8n1um")
@@ -53,3 +52,10 @@ script = ExtResource("4_2do1p")
 cone_angle = 0.785
 cone_distance = 500.0
 subdivisions = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ou2co")
+volume_db = -0.5
+autoplay = true
+attenuation = 9.18959
+parameters/looping = true

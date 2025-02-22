@@ -1,6 +1,7 @@
 extends Node2D
 class_name Weapon
 
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var muzzle: Marker2D = $Muzzle
 
 var weapon_resource: PackedEquippablePickup = null
@@ -9,13 +10,15 @@ var entity: CharacterEntity = null
 var body: Body = null
 
 func discard():
-    if body.has_weapon(): body.equip_weapon(null)
+    if body.has_weapon(): body.equip_weapon(null, false)
     queue_free()
 
-const DROP_FORCE: float = 50.
-func drop(traincar: Traincar, dir: Vector2):
+const DROP_FORCE: float = 75.
+func drop(traincar: Traincar, dir: Vector2, unpickable: bool = false):
     var pickup: Pickup = traincar.spawn_pickup(weapon_resource, body.global_position)
     pickup.apply_impulse(dir * DROP_FORCE)
+    if unpickable:
+        pickup.set_unpickable()
 
 func _input(event: InputEvent) -> void:
     if entity is not Player: return
@@ -47,6 +50,16 @@ func fire():
                 else: return acc, 
             0)
         initial_target = initial_targets[closest_idx]
+    play_fire_sound(traincar)
     traincar.add_entity(bullet, muzzle)
     bullet.set_target(initial_target)
     discard()
+
+func play_fire_sound(traincar: Traincar):
+    remove_child(audio)
+    traincar.add_child(audio)
+    audio.pitch_scale = randf_range(0.5, 1.5)
+    audio.play()
+    await audio.finished
+    traincar.remove_child(audio)
+    audio.queue_free()

@@ -22,3 +22,10 @@ func _on_area_body_entered(body: Node2D):
         var entity: CharacterEntity = body
         pickup_resource.on_pickup(entity)
         queue_free()
+
+func set_unpickable():
+    pickup_area.monitoring = false
+    var timer: SceneTreeTimer = get_tree().create_timer(0.8)
+    timer.timeout.connect(func():
+        pickup_area.monitoring = true
+    )

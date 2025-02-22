@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PackedEquippablePickup" load_steps=4 format=3 uid="uid://bxlq4r21x452u"]
 
-[ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/gun_pickup.png" id="1_ivucy"]
+[ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/sprites/gun_pickup.png" id="1_ivucy"]
 [ext_resource type="Script" path="res://scripts/packed_equippable_pickup.gd" id="1_npvjm"]
 [ext_resource type="PackedScene" uid="uid://bigy6vni8dtc0" path="res://scenes/weapons/gun_weapon.tscn" id="3_ohe37"]
 

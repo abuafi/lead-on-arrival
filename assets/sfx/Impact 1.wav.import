@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ckvs61ypb3upd"
+path="res://.godot/imported/Impact 1.wav-0004f3667697d69020d4a6d7b5562980.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Impact 1.wav"
+dest_files=["res://.godot/imported/Impact 1.wav-0004f3667697d69020d4a6d7b5562980.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

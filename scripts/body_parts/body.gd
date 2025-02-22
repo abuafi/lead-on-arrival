@@ -46,12 +46,19 @@ func set_torso_wobble(angle: float):
     torso_wobble = angle
     pass
 
-func equip_weapon(weapon: Weapon):
+func equip_weapon(weapon: Weapon, throw: bool = false):
     if is_instance_valid(weapon):
         weapon.entity = entity
         weapon.body = self
+    var old_weapon = get_weapon()
+    if is_instance_valid(old_weapon) and throw: 
+        old_weapon.drop(
+            entity.get_current_traincar(),
+            Vector2.DOWN.rotated(torso_rotation),
+            true
+        )
     arms.set_weapon(weapon)
-
+    
 func has_weapon() -> bool:
     return arms.has_weapon()
 func get_weapon() -> Weapon:

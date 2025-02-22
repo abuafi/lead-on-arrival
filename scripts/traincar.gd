@@ -94,6 +94,7 @@ func activate():
     nav_region.bake_navigation_polygon()
     
 func _activate_on_bake_finished():
+    await get_tree().create_timer(0.5).timeout
     entrance.open()
     entrance.player_passed_right.connect(
         _on_entrance_player_passed_right, 
@@ -105,6 +106,7 @@ func _on_entrance_player_passed_right(player: Player):
     entrance.close()
     level_started.emit(player)
     get_tree().create_timer(1.).timeout.connect(func():
+        if not is_instance_valid(player) or not is_instance_valid(entrance): return
         if player.global_position.x < entrance.global_position.x:
             entrance.open()
             entrance.player_passed_right.connect(
@@ -116,6 +118,7 @@ func _on_exit_player_passed_right(player: Player):
     exit.close()
     level_passed.emit(player)
     get_tree().create_timer(1.).timeout.connect(func():
+        if not is_instance_valid(player) or not is_instance_valid(exit): return
         if player.global_position.x < exit.global_position.x:
             exit.open()
             exit.player_passed_right.connect(

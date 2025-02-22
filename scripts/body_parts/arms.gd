@@ -29,15 +29,15 @@ func set_arms_sprite(arms_sprite: NodePath = ^"ArmsSprite"):
 
 func has_weapon() -> bool:
     return weapon_container.get_child_count() > 0
+
 func get_weapon() -> Weapon:
     if not has_weapon(): return null
     else: return weapon_container.get_child(0)
 
-func discard_weapon() -> void:
+func remove_weapon() -> void:
     var weapon: Weapon = get_weapon()
     if is_instance_valid(weapon): 
         weapon_container.remove_child(weapon)
-        weapon.discard()
 
 func drop_weapon(dir: Vector2) -> void:
     var weapon: Weapon = get_weapon()
@@ -46,7 +46,7 @@ func drop_weapon(dir: Vector2) -> void:
         weapon.drop(body.entity.get_current_traincar(), dir)
 
 func set_weapon(weapon: Weapon):
-    discard_weapon()
+    remove_weapon()
     if not is_instance_valid(weapon):
         set_arms_sprite()
     else:

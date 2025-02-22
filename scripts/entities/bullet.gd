@@ -28,6 +28,8 @@ func _physics_process(_delta):
         target_position = target_entity.global_position
 
     var target: Vector2 = nav.get_next_path_position() - global_position
+    nav.path_desired_distance -= _delta * 5
+    nav.path_desired_distance = clamp(nav.path_desired_distance, 5, 30)
     var dir: Vector2 = target.normalized()
     var linear_error = target.length()
 

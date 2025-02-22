@@ -3,26 +3,44 @@ class_name Legs
 
 @onready var sprite: AnimatedSprite2D = $LegsSprite
 @onready var body: Body = $".."
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var last_frame: int 
 var moving: bool = false :
     set(m):
         if moving == m: return
         moving = m
-        if moving:
-            sprite.play(&"walk")
-            sprite.frame = last_frame
-        else:
-            last_frame = sprite.frame
-            sprite.stop()
+        if moving: move()
+        else: stop_moving()
 var invert: bool = false :
     set(i):
         if invert == i: return
         invert = i 
         sprite.speed_scale = -1 if invert else 1
 
+func move():
+    sprite.play(&"walk")
+    sprite.frame = last_frame
+    if is_instance_valid(audio):
+        audio.play()
+        audio.finished.connect(audio.play)
+
+func stop_moving():
+    last_frame = sprite.frame
+    sprite.stop()
+    if is_instance_valid(audio):
+        if audio.finished.is_connected(audio.play):
+            audio.finished.disconnect(audio.play)
+        audio.stop()
+
 func _ready():
     sprite.frame_changed.connect(_on_frame_changed)
+
+func _on_metal_enter():
+    print('metal')
+
+func _on_metal_exit():
+    print('normal')
 
 const WALK_FRAMES: int = 13
 const WALK_CYCLE: float = WALK_FRAMES / TAU

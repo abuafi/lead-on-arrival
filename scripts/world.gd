@@ -37,6 +37,7 @@ func activate_level():
     else:
         current_car.entity_container.add_child(player)
         player.global_position = current_car.entrance.global_position
+        player.position.x -= 30
 
     current_car.activate()
     current_car.level_started.connect(

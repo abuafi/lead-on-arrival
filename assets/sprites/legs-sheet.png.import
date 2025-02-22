@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blinvloaec21v"
-path="res://.godot/imported/traincar_walls.png-1cc7ecafce1ec978b52467422c47ac0d.ctex"
+uid="uid://tt173q6bf342"
+path="res://.godot/imported/legs-sheet.png-ef6017cc8fda7e8c22bd11dd354aa743.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/traincar_walls.png"
-dest_files=["res://.godot/imported/traincar_walls.png-1cc7ecafce1ec978b52467422c47ac0d.ctex"]
+source_file="res://assets/sprites/legs-sheet.png"
+dest_files=["res://.godot/imported/legs-sheet.png-ef6017cc8fda7e8c22bd11dd354aa743.ctex"]
 
 [params]
 

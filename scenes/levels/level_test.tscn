@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://dsmnj7wwgpwfk"]
 
-[ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/icon.svg" id="1_gkpw2"]
+[ext_resource type="Texture2D" uid="uid://cm6kd1eqdexjo" path="res://assets/sprites/icon.svg" id="1_gkpw2"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_e63ac"]
 [ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_qhfc4"]
 [ext_resource type="PackedScene" uid="uid://xq6qiocs1bpd" path="res://scenes/base_pickup.tscn" id="4_un6yv"]
@@ -8,7 +8,7 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uv7n3"]
 texture = ExtResource("1_gkpw2")
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.03125, 0, -0.28125, -6.0625, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 2:0/0 = 0
@@ -22,7 +22,7 @@ texture = ExtResource("1_gkpw2")
 6:0/0 = 0
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.28125, -6.0625, 5.78125, -0.0625, 8, 8, -8, 8)
 0:1/0 = 0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 1:1/0 = 0
@@ -120,7 +120,7 @@ texture = ExtResource("1_gkpw2")
 7:6/0 = 0
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 0:7/0 = 0
-0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, 0.28125, 5.6875, -5.59375, 0.4375)
 1:7/0 = 0
 1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 2:7/0 = 0
@@ -134,7 +134,7 @@ texture = ExtResource("1_gkpw2")
 6:7/0 = 0
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
 7:7/0 = 0
-7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8, 8, -8, 8, -8)
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 5.78125, -0.0625, 0.28125, 5.6875, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_jkm3y"]
 physics_layer_0/collision_layer = 2
@@ -148,7 +148,7 @@ size = Vector2(465, 165)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
 position = Vector2(0, -9)
-tile_map_data = PackedByteArray("AAD6/wUAAAABAAEAAAD6/wQAAAABAAEAAAD7/wMAAAABAAEAAAD7/wQAAAABAAEAAAD7/wUAAAABAAEAAAD8/wUAAAABAAEAAAD8/wQAAAABAAEAAAD8/wMAAAABAAEAAAD7/wIAAAABAAEAAAD8/wIAAAABAAEAAAD6//v/AAABAAEAAAD6//z/AAABAAEAAAD6//3/AAABAAEAAAD6//7/AAABAAEAAAD7//7/AAABAAEAAAD7////AAABAAEAAAD7//3/AAABAAEAAAD8//3/AAABAAEAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//z/AAABAAEAAAAEAAUAAAABAAEAAAAEAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAJAP//AAABAAEAAAAJAP7/AAABAAEAAAAJAP3/AAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAD6/wUAAAABAAEAAAD6/wQAAAAAAAAAAAD7/wMAAAABAAEAAAD7/wQAAAABAAEAAAD7/wUAAAABAAEAAAD8/wUAAAABAAEAAAD8/wQAAAABAAEAAAD8/wMAAAABAAEAAAD7/wIAAAAAAAAAAAD8/wIAAAAHAAAAAAD6//v/AAABAAEAAAD6//z/AAABAAEAAAD6//3/AAABAAEAAAD6//7/AAAAAAcAAAD7//7/AAABAAEAAAD7////AAAHAAcAAAD7//3/AAABAAEAAAD8//3/AAAHAAcAAAD8//z/AAABAAEAAAD8//v/AAABAAEAAAD7//v/AAABAAEAAAD7//z/AAABAAEAAAAEAAUAAAABAAEAAAAEAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAJAP//AAABAAEAAAAJAP7/AAABAAEAAAAJAP3/AAABAAEAAAA=")
 tile_set = SubResource("TileSet_jkm3y")
 
 [node name="EntityContainer" type="Node2D" parent="."]
@@ -168,6 +168,10 @@ rotation = -3.81068
 
 [node name="Pickup" parent="EntityContainer" instance=ExtResource("4_un6yv")]
 position = Vector2(47, 66)
+pickup_resource = ExtResource("3_qhfc4")
+
+[node name="Pickup2" parent="EntityContainer" instance=ExtResource("4_un6yv")]
+position = Vector2(-175, -41)
 pickup_resource = ExtResource("3_qhfc4")
 
 [node name="PlayArea" type="Area2D" parent="."]

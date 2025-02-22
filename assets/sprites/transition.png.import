@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5mk6wms4jxt3"
-path="res://.godot/imported/arms_single.png-7bdb4bba90ad30667296d2803523fd7b.ctex"
+uid="uid://c64hr06fro8o8"
+path="res://.godot/imported/transition.png-340e89a70868c058e65e0fbad0863d55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/arms_single.png"
-dest_files=["res://.godot/imported/arms_single.png-7bdb4bba90ad30667296d2803523fd7b.ctex"]
+source_file="res://assets/sprites/transition.png"
+dest_files=["res://.godot/imported/transition.png-340e89a70868c058e65e0fbad0863d55.ctex"]
 
 [params]
 

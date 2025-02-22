@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://h8b0crtlhw2v"]
+[gd_scene load_steps=11 format=3 uid="uid://h8b0crtlhw2v"]
 
 [ext_resource type="Script" path="res://scripts/door.gd" id="1_h7m30"]
-[ext_resource type="Texture2D" uid="uid://b4phw1xocj4l5" path="res://assets/door.png" id="2_6vf0h"]
+[ext_resource type="Texture2D" uid="uid://b4phw1xocj4l5" path="res://assets/sprites/door.png" id="2_6vf0h"]
+[ext_resource type="AudioStream" uid="uid://dl7mw1icf1m3n" path="res://assets/sfx/door_open.ogg" id="3_wyvo5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bw1"]
 size = Vector2(13, 38)
@@ -73,6 +74,21 @@ tracks/2/keys = {
 "method": &"enable_collision"
 }]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.58,
+"stream": ExtResource("3_wyvo5")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_5sraw"]
 resource_name = "open"
@@ -117,6 +133,21 @@ tracks/2/keys = {
 "method": &"disable_collision"
 }]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.32,
+"start_offset": 0.3,
+"stream": ExtResource("3_wyvo5")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4re5l"]
 _data = {
@@ -165,3 +196,5 @@ shape = SubResource("WorldBoundaryShape2D_em6qr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 shape = SubResource("WorldBoundaryShape2D_mau33")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

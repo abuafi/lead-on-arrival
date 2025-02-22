@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c64hr06fro8o8"
-path="res://.godot/imported/transition.png-a61b10d438d825da3996844828f62c36.ctex"
+uid="uid://c6i8x2tki0esf"
+path="res://.godot/imported/gun_pickup.png-f10ab72be5a1d01a110817a7a3d9066b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/transition.png"
-dest_files=["res://.godot/imported/transition.png-a61b10d438d825da3996844828f62c36.ctex"]
+source_file="res://assets/sprites/gun_pickup.png"
+dest_files=["res://.godot/imported/gun_pickup.png-f10ab72be5a1d01a110817a7a3d9066b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biihyxs1lofmg"
-path="res://.godot/imported/player_hat.png-b6d4c5300c83760a54c29373906ee194.ctex"
+uid="uid://qe5lx20636y3"
+path="res://.godot/imported/transition_initial.png-d2098b1616fde2f4831bc4a2a2adf057.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_hat.png"
-dest_files=["res://.godot/imported/player_hat.png-b6d4c5300c83760a54c29373906ee194.ctex"]
+source_file="res://assets/sprites/transition_initial.png"
+dest_files=["res://.godot/imported/transition_initial.png-d2098b1616fde2f4831bc4a2a2adf057.ctex"]
 
 [params]
 

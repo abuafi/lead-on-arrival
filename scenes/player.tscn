@@ -1,16 +1,20 @@
-[gd_scene load_steps=27 format=3 uid="uid://bfjoccdx3f8ao"]
+[gd_scene load_steps=33 format=3 uid="uid://bfjoccdx3f8ao"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_kf51b"]
 [ext_resource type="Script" path="res://scripts/body_parts/body.gd" id="2_fwt2o"]
 [ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_nw8p0"]
-[ext_resource type="Texture2D" uid="uid://biihyxs1lofmg" path="res://assets/player_hat.png" id="2_pc813"]
-[ext_resource type="Texture2D" uid="uid://tt173q6bf342" path="res://assets/legs-sheet.png" id="3_gt5mr"]
+[ext_resource type="Texture2D" uid="uid://biihyxs1lofmg" path="res://assets/sprites/player_hat.png" id="2_pc813"]
+[ext_resource type="Texture2D" uid="uid://tt173q6bf342" path="res://assets/sprites/legs-sheet.png" id="3_gt5mr"]
 [ext_resource type="Script" path="res://scripts/body_parts/head.gd" id="3_ledbm"]
 [ext_resource type="Script" path="res://scripts/body_parts/legs.gd" id="3_lr18j"]
-[ext_resource type="Texture2D" uid="uid://crwemgf5uf1u0" path="res://assets/player_body.png" id="4_thngx"]
+[ext_resource type="Texture2D" uid="uid://crwemgf5uf1u0" path="res://assets/sprites/player_body.png" id="4_thngx"]
 [ext_resource type="Script" path="res://scripts/body_parts/arms.gd" id="5_5o3ao"]
-[ext_resource type="Texture2D" uid="uid://ckgn3i130082g" path="res://assets/arms.png" id="5_x7s1y"]
-[ext_resource type="Texture2D" uid="uid://b5mk6wms4jxt3" path="res://assets/arms_single.png" id="6_rlqx2"]
+[ext_resource type="Texture2D" uid="uid://ckgn3i130082g" path="res://assets/sprites/arms.png" id="5_x7s1y"]
+[ext_resource type="Texture2D" uid="uid://b5mk6wms4jxt3" path="res://assets/sprites/arms_single.png" id="6_rlqx2"]
+[ext_resource type="AudioStream" uid="uid://bj3spdyamr83k" path="res://assets/sfx/steps_platform.ogg" id="12_5mw1i"]
+[ext_resource type="AudioStream" uid="uid://dmsniyju3pj53" path="res://assets/sfx/steps_platform2.ogg" id="13_yx3in"]
+[ext_resource type="AudioStream" uid="uid://bwh7f3hekxk07" path="res://assets/sfx/Impact 3.wav" id="14_3lv1v"]
+[ext_resource type="AudioStream" uid="uid://db7erdhrc7pkw" path="res://assets/sfx/Impact 4.wav" id="15_3t6il"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tycaw"]
 atlas = ExtResource("3_gt5mr")
@@ -111,7 +115,17 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_83pkk"]
+streams_count = 2
+stream_0/stream = ExtResource("12_5mw1i")
+stream_1/stream = ExtResource("13_yx3in")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_nelab"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_owaje"]
+streams_count = 2
+stream_0/stream = ExtResource("14_3lv1v")
+stream_1/stream = ExtResource("15_3t6il")
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 7
@@ -128,6 +142,9 @@ script = ExtResource("3_lr18j")
 [node name="LegsSprite" type="AnimatedSprite2D" parent="Body/Legs"]
 sprite_frames = SubResource("SpriteFrames_dhyj6")
 animation = &"walk"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Body/Legs"]
+stream = SubResource("AudioStreamRandomizer_83pkk")
 
 [node name="Arms" type="Node2D" parent="Body" node_paths=PackedStringArray("current_sprite")]
 script = ExtResource("5_5o3ao")
@@ -157,4 +174,11 @@ script = ExtResource("3_ledbm")
 texture = ExtResource("2_pc813")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_nelab")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_owaje")

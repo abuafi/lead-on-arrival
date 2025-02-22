@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2ulpp2648lln"]
 
 [ext_resource type="Script" path="res://scripts/traincar.gd" id="1_vncj4"]
-[ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/traincar.png" id="2_isu8i"]
+[ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/sprites/traincar.png" id="2_isu8i"]
 [ext_resource type="PackedScene" uid="uid://bjk0kamlolv4t" path="res://scenes/levels/level_empty.tscn" id="3_mhryw"]
-[ext_resource type="Texture2D" uid="uid://blinvloaec21v" path="res://assets/traincar_walls.png" id="4_c38rs"]
+[ext_resource type="Texture2D" uid="uid://blinvloaec21v" path="res://assets/sprites/traincar_walls.png" id="4_c38rs"]
 [ext_resource type="PackedScene" uid="uid://h8b0crtlhw2v" path="res://scenes/door.tscn" id="5_6illw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_mv5gb"]
