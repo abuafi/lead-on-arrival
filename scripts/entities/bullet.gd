@@ -1,15 +1,13 @@
-extends RigidBody2D
+extends CharacterBody2D
 class_name Bullet
 
 @onready var trail: Line2D = $Trail
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 
-var velocity: Vector2
-
 class PIDControl:
     var k_p: float = 9.
     var k_i: float = 1.5
-    var k_d: float = 0.5
+    var k_d: float = 0.2
     var i: float = 0.
     var d: float = 0.
     var last_error: float =  0.
@@ -24,33 +22,43 @@ var angular_pid: PIDControl = PIDControl.new()
 var linear_pid: PIDControl = PIDControl.new()
 
 func _physics_process(_delta):
-    if is_instance_valid(target_entity):
-        target_position = target_entity.global_position
+    if not is_instance_valid(target_entity):
+        var traincar: Traincar = get_node(^"../../../..")
+        var entities: Array[CharacterEntity] = traincar.get_targetable_entities(self)
+        if entities.size() == 0: return
+        var distances: Array[float] = []
+        distances.assign(entities.map(func(t): return t.global_position.distance_squared_to(global_position)))
+        var indices: Array[int] = [] 
+        indices.assign(range(entities.size()))
+        var closest_idx: int = indices.reduce(
+            func(acc: int, val: int):
+                if distances[val] < distances[acc]:
+                    return val
+                else: return acc, 
+            0)
+        target_entity = entities[closest_idx]
+    target_position = target_entity.global_position
+    # print(target_entity, " ", target_position)
 
     var target: Vector2 = nav.get_next_path_position() - global_position
-    nav.path_desired_distance -= _delta * 5
-    nav.path_desired_distance = clamp(nav.path_desired_distance, 5, 30)
     var dir: Vector2 = target.normalized()
     var linear_error = target.length()
-
-    # Hopefully prevents the bullet from getting stuck on walls
-    if linear_error < 5:
-        var idx: int = nav.get_current_navigation_path_index()
-        var path: PackedVector2Array = nav.get_current_navigation_path()
-        if idx + 1 < path.size():
-            dir = path[idx + 1].normalized()
 
     var angle_target: float = atan2(dir.y, dir.x) + PI/2
     var forward_vector: Vector2 = Vector2.UP.rotated(rotation)
     var angular_error = angle_difference(rotation, angle_target)
     var angular: float = angular_pid.step(angular_error, _delta)
     angular = clamp(angular, -TAU, TAU)
-    apply_torque_impulse(angular * _delta * 100)
+
+    rotation += angular * _delta * 2
 
     var linear: float = linear_pid.step(linear_error, _delta)
-    linear = clamp(linear, 0, 500)
-    var collision: KinematicCollision2D = move_and_collide(forward_vector * linear * _delta)
-    if is_instance_valid(collision): handle_collision(collision)
+    linear = clamp(linear, 100, 500)
+    velocity = forward_vector * linear * _delta * 80
+    var collided: bool = move_and_slide()
+    if collided:
+        var collision: KinematicCollision2D = get_last_slide_collision()
+        if is_instance_valid(collision): handle_collision(collision)
 
 func handle_collision(collision: KinematicCollision2D):
     var collider: Object = collision.get_collider()
@@ -102,7 +110,12 @@ func _process(_delta: float) -> void:
 
 @onready var detection_area: BulletDetectionArea = $BulletDetectionArea
 func _ready():
+    detection_area.monitoring = false
     detection_area.closest_entity_changed.connect(_on_entity_closest)
+    get_tree().create_timer(0.1, false).timeout.connect(func():
+        detection_area.monitoring = true
+    )
 
 func _on_entity_closest(entity: CharacterEntity):
-    target_entity = entity
+    if is_instance_valid(entity):
+        target_entity = entity

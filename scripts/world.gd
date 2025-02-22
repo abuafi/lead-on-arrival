@@ -13,11 +13,29 @@ signal level_ready(level: int)
 var player: Player = null
 var level: int = 0
 
+const LEVEL_DIR_DICT: Dictionary = {
+    # 0: "test"
+    0: "easy",
+    5: "medium",
+    10: "hard",
+}
+static var dir_changes: Array = LEVEL_DIR_DICT.keys()
+
 func get_level_name(_level: int) -> String:
     _level += starting_level
-    if _level == 0: return "level_empty"
-    # TODO prevent next level from ticking
-    else: return "level_test"
+    var last_idx: int = 0
+    for i: int in dir_changes:
+        if i > _level: break
+        last_idx = i
+    var dir: String = LEVEL_DIR_DICT[last_idx]
+    return pick_random_level(dir)
+
+func pick_random_level(dir: String) -> String:
+    var dir_path: String = "res://levels/" + dir
+    var levels: PackedStringArray = DirAccess.get_files_at(dir_path)
+    var levels_arr: Array[String] = []
+    levels_arr.assign(levels)
+    return dir + "/" + levels_arr.pick_random()
 
 func _on_player_death():
     current_car.activate()
@@ -81,11 +99,11 @@ func _on_level_started(_player: Player):
     camera.target_x = traincar_position(level)
 
 func load_first_level(level_name: String):
-    var level_path: String = "res://scenes/levels/" + level_name + ".tscn"
+    var level_path: String = "res://levels/" + level_name
     current_car.load_level(level_path)
 
 func load_next_level(level_name: String):
-    var level_path: String = "res://scenes/levels/" + level_name + ".tscn"
+    var level_path: String = "res://levels/" + level_name
     if not is_instance_valid(next_car):
         next_car = EMPTY_TRAINCAR_SCENE.instantiate()
         call_deferred(&"add_child", next_car)

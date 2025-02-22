@@ -1,15 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjk0kamlolv4t"]
 
-[ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="1_c5onv"]
-
-[sub_resource type="TileSet" id="TileSet_jkm3y"]
-physics_layer_0/collision_layer = 1
+[ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_gp7g6"]
+[ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="2_k76ew"]
 
 [node name="Level" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
 position = Vector2(0, -9)
-tile_set = SubResource("TileSet_jkm3y")
+tile_set = ExtResource("1_gp7g6")
 
 [node name="EntityContainer" type="Node2D" parent="."]
 
@@ -17,4 +15,4 @@ tile_set = SubResource("TileSet_jkm3y")
 z_index = -100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
-shape = ExtResource("1_c5onv")
+shape = ExtResource("2_k76ew")

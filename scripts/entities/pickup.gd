@@ -25,7 +25,7 @@ func _on_area_body_entered(body: Node2D):
 
 func set_unpickable():
     pickup_area.monitoring = false
-    var timer: SceneTreeTimer = get_tree().create_timer(0.8)
+    var timer: SceneTreeTimer = get_tree().create_timer(0.8, false)
     timer.timeout.connect(func():
         pickup_area.monitoring = true
     )

@@ -5,8 +5,8 @@ class_name InterruptOnSignal
 
 func enter() -> void:
     super.enter()
-    child.passed.connect(node_passed, ConnectFlags.CONNECT_ONE_SHOT)
-    child.failed.connect(node_failed, ConnectFlags.CONNECT_ONE_SHOT)
+    child.passed.connect(func(_arg): node_passed(), ConnectFlags.CONNECT_ONE_SHOT)
+    child.failed.connect(func(_arg): node_failed(), ConnectFlags.CONNECT_ONE_SHOT)
     entity.connect(
         awaiting, 
         _on_signal_emitted,

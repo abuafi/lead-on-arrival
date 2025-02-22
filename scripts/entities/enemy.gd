@@ -31,12 +31,15 @@ func _physics_process(_delta):
     body.set_velocity(velocity)
     apply_forces()
 
-func _on_noise(pos: Vector2):
-    last_heard_noise = pos 
+func _on_noise(pos: Vector2, source: StringName):
+    if not last_heard_noise.is_finite():
+        last_heard_noise = pos 
+    elif source == &"yell":
+        last_heard_noise = pos 
 
 func has_heard_noise():
     return last_heard_noise.is_finite()
 
 func make_noise():
     if not is_instance_valid(detected_player): super.make_noise()
-    else: get_current_traincar().make_noise(detected_player)
+    else: get_current_traincar().make_noise(detected_player, &"yell")

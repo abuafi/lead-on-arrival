@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://48yo7gaurd3y"]
+
+[ext_resource type="Script" path="res://scripts/entities/pickup.gd" id="1_rc3pj"]
+[ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/sprites/gun_pickup.png" id="2_gqpqd"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_vww7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qn12y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4f58n"]
+radius = 8.0
+
+[node name="Pickup" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 6
+gravity_scale = 0.0
+inertia = 1.0
+linear_damp = 1.0
+script = ExtResource("1_rc3pj")
+pickup_resource = ExtResource("2_vww7o")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_gqpqd")
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_qn12y")
+
+[node name="RigidBodyArea" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4f58n")

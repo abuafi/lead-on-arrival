@@ -10,6 +10,7 @@ func enter() -> void:
     timer.timeout.connect(_on_timeout)
 
 func exit() -> void:
+    super.exit()
     if is_instance_valid(timer) and \
     timer.timeout.is_connected(_on_timeout):
         timer.timeout.disconnect(_on_timeout)

@@ -1,8 +1,7 @@
-[gd_scene load_steps=33 format=3 uid="uid://bfjoccdx3f8ao"]
+[gd_scene load_steps=32 format=3 uid="uid://bfjoccdx3f8ao"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_kf51b"]
 [ext_resource type="Script" path="res://scripts/body_parts/body.gd" id="2_fwt2o"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_nw8p0"]
 [ext_resource type="Texture2D" uid="uid://biihyxs1lofmg" path="res://assets/sprites/player_hat.png" id="2_pc813"]
 [ext_resource type="Texture2D" uid="uid://tt173q6bf342" path="res://assets/sprites/legs-sheet.png" id="3_gt5mr"]
 [ext_resource type="Script" path="res://scripts/body_parts/head.gd" id="3_ledbm"]
@@ -131,7 +130,6 @@ stream_1/stream = ExtResource("15_3t6il")
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_kf51b")
-default_equip = ExtResource("2_nw8p0")
 
 [node name="Body" type="Node2D" parent="."]
 script = ExtResource("2_fwt2o")

@@ -1,19 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2ulpp2648lln"]
+[gd_scene load_steps=8 format=3 uid="uid://d2ulpp2648lln"]
 
 [ext_resource type="Script" path="res://scripts/traincar.gd" id="1_vncj4"]
 [ext_resource type="Texture2D" uid="uid://bmuo2h88tp57p" path="res://assets/sprites/traincar.png" id="2_isu8i"]
-[ext_resource type="PackedScene" uid="uid://bjk0kamlolv4t" path="res://scenes/levels/level_empty.tscn" id="3_mhryw"]
+[ext_resource type="PackedScene" uid="uid://bjk0kamlolv4t" path="res://levels/empty.tscn" id="3_mhryw"]
 [ext_resource type="Texture2D" uid="uid://blinvloaec21v" path="res://assets/sprites/traincar_walls.png" id="4_c38rs"]
 [ext_resource type="PackedScene" uid="uid://h8b0crtlhw2v" path="res://scenes/door.tscn" id="5_6illw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_mv5gb"]
-vertices = PackedVector2Array(225, -7, 225.5, -7, 225.5, 7, 225, 7, 225, 76, -225, 76, -224.5, 31, -225, 31, -224.5, -31, 225, -76, -225, -76, -225, -31)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(5, 7, 6), PackedInt32Array(3, 6, 8, 0), PackedInt32Array(9, 0, 8, 10), PackedInt32Array(10, 8, 11)])
+vertices = PackedVector2Array(227, -9, 227.5, -9, 227.5, 9, 227, 9, -226.859, 78, -227, 77.8594, -227, 29, -226.5, 29, 226.859, 78, -226.5, -29, -227, -29, -227, -77.8594, 227, 77.8594, -226.859, -78, 226.859, -78, 227, -77.8594)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11), PackedInt32Array(8, 7, 9), PackedInt32Array(12, 8, 9, 11, 13, 14, 3), PackedInt32Array(0, 3, 14), PackedInt32Array(14, 15, 0)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-250, 101, -250, -100, 250, -100, 249, 100)])
 parsed_geometry_type = 1
+parsed_collision_mask = 4278190087
 source_geometry_mode = 1
 source_geometry_group_name = &"collision_geometry"
-agent_radius = 12.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6lfuj"]
+vertices = PackedVector2Array(227, -9, 227.5, -9, 227.5, 9, 227, 9, -226.859, 78, -227, 77.8594, -227, 29, -226.5, 29, 226.859, 78, -226.5, -29, -227, -29, -227, -77.8594, 227, 77.8594, -226.859, -78, 226.859, -78, 227, -77.8594)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11), PackedInt32Array(8, 7, 9), PackedInt32Array(12, 8, 9, 11, 13, 14, 3), PackedInt32Array(0, 3, 14), PackedInt32Array(14, 15, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-250, 101, -250, -100, 250, -100, 249, 100)])
+parsed_geometry_type = 1
+parsed_collision_mask = 4278190083
+source_geometry_mode = 1
+source_geometry_group_name = &"collision_geometry"
+agent_radius = 5.0
 
 [node name="Traincar" type="Node2D"]
 script = ExtResource("1_vncj4")
@@ -44,6 +54,10 @@ scale = Vector2(-1, -1)
 polygon = PackedVector2Array(-237, -18, -250, -18, -250, -87, -237, -100, 237, -100, 250, -87, 250, -18, 237, -18, 237, -81, 231, -87, -231, -87, -237, -81, -237, -81)
 
 [node name="Level" parent="NavRegion2D" instance=ExtResource("3_mhryw")]
+
+[node name="NavRegionBullet" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_6lfuj")
+navigation_layers = 2
 
 [node name="CompletionTimer" type="Timer" parent="."]
 wait_time = 0.1

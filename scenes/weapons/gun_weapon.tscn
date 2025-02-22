@@ -1,12 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bigy6vni8dtc0"]
+[gd_scene load_steps=6 format=3 uid="uid://bigy6vni8dtc0"]
 
 [ext_resource type="Script" path="res://scripts/entities/weapon.gd" id="1_ohfwc"]
 [ext_resource type="Texture2D" uid="uid://c8iw5j2agycro" path="res://assets/sprites/gun_weapon.png" id="1_umni3"]
+[ext_resource type="PackedScene" uid="uid://dbohu3w616fa4" path="res://scenes/bullet_nav.tscn" id="2_epist"]
 [ext_resource type="AudioStream" uid="uid://c2n5us751nhbo" path="res://assets/sfx/gun_fire.wav" id="3_w1heg"]
 [ext_resource type="AudioStream" uid="uid://43kwi6v1wrvu" path="res://assets/sfx/invalid.wav" id="4_oj0tg"]
 
 [node name="GunWeapon" type="Node2D"]
 script = ExtResource("1_ohfwc")
+
+[node name="BulletNav" parent="." instance=ExtResource("2_epist")]
 
 [node name="GunSprite" type="Sprite2D" parent="."]
 position = Vector2(0, 6)

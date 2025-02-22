@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=4 uid="uid://dy80gj4illera"]
+
+[ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_fub5c"]
+[ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_0cwy1"]
+[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_2qtiw"]
+[ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="4_h8tn0"]
+[ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_mugk2"]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["collision_geometry"]]
+position = Vector2(0, -9)
+tile_map_data = PackedByteArray("AAD2//X/AAACAAAAAAD2//b/AAACAAEAAAD2//f/AAACAAIAAAD2//r/AAACAAAAAAD2//v/AAACAAEAAAD2//z/AAACAAEAAAD2//3/AAACAAEAAAD2//7/AAACAAEAAAD2////AAACAAEAAAD2/wAAAAACAAEAAAD2/wEAAAACAAEAAAD2/wIAAAACAAEAAAD2/wMAAAACAAIAAAAJAPX/AAACAAAAAAAJAPb/AAACAAEAAAAJAPf/AAACAAIAAAAJAPv/AAACAAAAAAAJAPz/AAACAAEAAAAJAP3/AAACAAEAAAAJAP7/AAACAAEAAAAJAP//AAACAAEAAAAJAAAAAAACAAEAAAAJAAEAAAACAAEAAAAJAAIAAAACAAEAAAAJAAMAAAACAAIAAAD1//X/AAAAAAAAAAD1//b/AAAAAAEAAAD1//f/AAAAAAIAAAD1//r/AAAAAAAAAAD1//v/AAAAAAEAAAD1//z/AAAAAAEAAAD1//3/AAAAAAEAAAD1//7/AAAAAAEAAAD1////AAAAAAEAAAD1/wAAAAAAAAEAAAD1/wEAAAAAAAEAAAD1/wIAAAAAAAEAAAD1/wMAAAAAAAIAAAD4/wMAAAADAAMAAAD6/wMAAAADAAMAAAD8/wMAAAADAAMAAAD+/wMAAAADAAMAAAAAAAMAAAADAAMAAAACAAMAAAADAAMAAAAEAAMAAAADAAMAAAAGAAMAAAADAAMAAAAIAPX/AAAAAAAAAAAIAPb/AAAAAAEAAAAIAPf/AAAAAAIAAAAIAPv/AAAAAAAAAAAIAPz/AAAAAAEAAAAIAP3/AAAAAAEAAAAIAP7/AAAAAAEAAAAIAP//AAAAAAEAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAEAAAAIAAIAAAAAAAEAAAAIAAMAAAAAAAIAAAA=")
+tile_set = ExtResource("1_fub5c")
+
+[node name="EntityContainer" type="Node2D" parent="."]
+
+[node name="Enemy" parent="EntityContainer" instance=ExtResource("2_0cwy1")]
+position = Vector2(-1, -33)
+default_equip = ExtResource("3_2qtiw")
+
+[node name="Enemy2" parent="EntityContainer" instance=ExtResource("2_0cwy1")]
+position = Vector2(-68, 69)
+rotation = -2.45146
+
+[node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_0cwy1")]
+position = Vector2(58, 70)
+rotation = 2.70931
+
+[node name="Pickup" parent="EntityContainer" instance=ExtResource("4_h8tn0")]
+position = Vector2(0, 59)
+
+[node name="Pickup2" parent="EntityContainer" instance=ExtResource("4_h8tn0")]
+position = Vector2(-214, -69)
+
+[node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
+z_index = -100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
+shape = ExtResource("5_mugk2")

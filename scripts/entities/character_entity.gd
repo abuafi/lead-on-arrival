@@ -60,4 +60,4 @@ func die():
     queue_free()
 
 func make_noise():
-    get_current_traincar().make_noise(self)
+    get_current_traincar().make_noise(self, &"yell")

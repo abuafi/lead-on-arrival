@@ -5,6 +5,7 @@ class_name Weapon
 @onready var play_invalid: AudioStreamPlayer = $Invalid
 @onready var muzzle: Marker2D = $Muzzle
 @onready var checker: RayCast2D = $Muzzle/CheckerRaycast
+@onready var bullet_nav: NavigationAgent2D = $BulletNav
 
 var weapon_resource: PackedEquippablePickup = null
 
@@ -38,7 +39,7 @@ func fire():
         return
 
     var bullet: Bullet = BULLET_SCENE.instantiate()
-    traincar.make_noise(self)
+    traincar.make_noise(self, &"weapon")
     
     var initial_targets: Array[CharacterEntity] = traincar.get_targetable_entities(entity)
     var initial_target: CharacterEntity
@@ -72,8 +73,7 @@ func can_fire(traincar: Traincar) -> bool:
     checker.force_raycast_update()
     if not checker.is_colliding(): return false
     var collider: Object = checker.get_collider()
-    print(collider)
-    return collider == entity
+    return collider is CharacterEntity
 
 func play_fire_sound(traincar: Traincar):
     remove_child(play_fire)

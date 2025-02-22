@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cjdf6b1rsf335"]
+[gd_scene load_steps=54 format=3 uid="uid://cjdf6b1rsf335"]
 
 [ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_jhjaa"]
 [ext_resource type="Texture2D" uid="uid://denueuk6ko1gr" path="res://assets/sprites/enemy_hat.png" id="2_2tia3"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://scripts/behaviour/leaves/go_to_pickup.gd" id="28_nl5ki"]
 [ext_resource type="Script" path="res://scripts/behaviour/decorators/interrupt_on_signal.gd" id="29_rlwxj"]
 [ext_resource type="AudioStream" uid="uid://bwh7f3hekxk07" path="res://assets/sfx/Impact 3.wav" id="34_hurow"]
+[ext_resource type="Script" path="res://scripts/behaviour/leaves/look_sweep.gd" id="34_tunh6"]
 [ext_resource type="AudioStream" uid="uid://db7erdhrc7pkw" path="res://assets/sfx/Impact 4.wav" id="35_s36oe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tycaw"]
@@ -148,7 +149,7 @@ stream_0/stream = ExtResource("34_hurow")
 stream_1/stream = ExtResource("35_s36oe")
 
 [node name="Enemy" type="CharacterBody2D" groups=["hostile"]]
-collision_mask = 7
+collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_jhjaa")
 
@@ -193,6 +194,7 @@ script = ExtResource("3_k7r21")
 texture = ExtResource("2_2tia3")
 
 [node name="DetectionArea" type="Area2D" parent="Body/Head"]
+visible = false
 collision_mask = 3
 script = ExtResource("3_sgmf2")
 
@@ -337,27 +339,12 @@ awaiting = &"aware"
 [node name="SequenceSweepLook" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal"]
 script = ExtResource("15_7mui4")
 
-[node name="LookAroundCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
-script = ExtResource("26_h14m0")
-speed = 1.571
-rotation_amount = 1.571
-
 [node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("21_oebm2")
 
-[node name="LookAroundCCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
-script = ExtResource("26_h14m0")
-speed = 1.571
-rotation_clockwise = false
-rotation_amount = 3.142
-
-[node name="Timeout2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
-script = ExtResource("21_oebm2")
-
-[node name="LookAroundCW2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
-script = ExtResource("26_h14m0")
-speed = 1.571
-rotation_amount = 1.571
+[node name="LookSweep" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
+script = ExtResource("34_tunh6")
+rotation_total_amount = 1.571
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_ue47t")

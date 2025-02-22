@@ -3,6 +3,7 @@ class_name Traincar
 
 @onready var world: World = $".."
 @onready var nav_region: NavigationRegion2D = $NavRegion2D
+@onready var nav_region_bullet: NavigationRegion2D = $NavRegionBullet
 
 @onready var entity_container: Node2D = $NavRegion2D/Level/EntityContainer
 @onready var play_area: Area2D = $NavRegion2D/Level/PlayArea
@@ -68,11 +69,12 @@ func get_pickups() -> Array[Pickup]:
     )
     return out
 
-func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
+func get_targetable_entities(source: Node2D) -> Array[CharacterEntity]:
     var is_hostile: bool = source.is_in_group(&"hostile")
     var entities: Array[CharacterEntity] = character_entities()
     entities = entities.filter(func(e): return is_hostile != e.is_in_group(&"hostile"))
-    if entities.size() == 0: return [source]
+    if entities.size() == 0 and source is CharacterEntity: 
+        return [source]
     return entities
 
 var loaded_level_path = null
@@ -106,15 +108,19 @@ var completed: bool = false :
         if not completed: activate()
 
 func activate():
-    level.process_mode = Node.PROCESS_MODE_INHERIT
     nav_region.bake_finished.connect( 
         _activate_on_bake_finished,
         ConnectFlags.CONNECT_ONE_SHOT)
+    nav_region_bullet.bake_navigation_polygon()
     nav_region.bake_navigation_polygon()
     
+signal level_active()
 func _activate_on_bake_finished():
+    level.process_mode = Node.PROCESS_MODE_INHERIT
     exit.close()
-    await get_tree().create_timer(0.5).timeout
+    await get_tree().create_timer(0.5, false).timeout
+    var player: Player = get_player()
+    player.body.equip_weapon(null)
     entrance.open()
     entrance.player_passed_right.connect(
         _on_entrance_player_passed_right, 
@@ -122,11 +128,12 @@ func _activate_on_bake_finished():
     if not completion_timer.timeout.is_connected(check_level_completion):
         completion_timer.timeout.connect(check_level_completion)
     completion_timer.start()
+    level_active.emit()
 
 func _on_entrance_player_passed_right(player: Player):
     entrance.close()
     level_started.emit(player)
-    get_tree().create_timer(1.).timeout.connect(func():
+    get_tree().create_timer(1., false).timeout.connect(func():
         if not is_instance_valid(player) or not is_instance_valid(entrance): return
         if player.global_position.x < entrance.global_position.x:
             entrance.open()
@@ -137,8 +144,9 @@ func _on_entrance_player_passed_right(player: Player):
 
 func _on_exit_player_passed_right(player: Player):
     exit.close()
+    player.last_safe_pos = player.global_position
     level_passed.emit(player)
-    get_tree().create_timer(1.).timeout.connect(func():
+    get_tree().create_timer(1., false).timeout.connect(func():
         if not is_instance_valid(player) or not is_instance_valid(exit): return
         if player.global_position.x < exit.global_position.x:
             exit.open()
@@ -161,10 +169,10 @@ func check_level_completion():
 signal level_passed(player: Player)
 signal level_started(player: Player)
 
-signal noise(position: Vector2)
+signal noise(position: Vector2, source: StringName)
 
-func make_noise(node: Node2D):
-    noise.emit(node.global_position)
+func make_noise(node: Node2D, source: StringName):
+    noise.emit(node.global_position, source)
 
 func has_pickup() -> bool:
     return get_pickups().size() > 0
