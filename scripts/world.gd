@@ -6,7 +6,9 @@ class_name World
 @onready var next_car: Traincar = null
 @onready var camera: GameCamera = $Camera2D
 
-@export var starting_level = 0
+@export var starting_level = 1
+
+signal level_ready(level: int)
 
 var player: Player = null
 var level: int = 0
@@ -14,12 +16,14 @@ var level: int = 0
 func get_level_name(_level: int) -> String:
     _level += starting_level
     if _level == 0: return "level_empty"
-    if _level == 1: return "level_test"
     # TODO prevent next level from ticking
-    else: return "level_empty"
+    else: return "level_test"
+
+func _on_player_death():
+    current_car.activate()
 
 func _ready():
-    player = PLAYER_SCENE.instantiate()
+    setup_player()
 
     var level_name_first: String = get_level_name(level)
     load_first_level(level_name_first)
@@ -39,6 +43,7 @@ func activate_level():
         player.global_position = current_car.entrance.global_position
         player.position.x -= 30
 
+    level_ready.emit(level)
     current_car.activate()
     current_car.level_started.connect(
         _on_level_started,
@@ -83,10 +88,15 @@ func load_next_level(level_name: String):
     var level_path: String = "res://scenes/levels/" + level_name + ".tscn"
     if not is_instance_valid(next_car):
         next_car = EMPTY_TRAINCAR_SCENE.instantiate()
-        add_child(next_car)
+        call_deferred(&"add_child", next_car)
         next_car.position.x = traincar_position(level + 1)
 
         var next_transition: Node2D = TRANSITION_SCENE.instantiate()
         next_car.add_child(next_transition)
         next_transition.global_position.x = next_car.global_position.x + TRANSITION_OFFSET
-    next_car.load_level(level_path)
+    next_car.call_deferred(&"load_level", level_path)
+
+func setup_player() -> void:
+    player = PLAYER_SCENE.instantiate()
+    player.setup_respawn(self)
+    player.player_died.connect(_on_player_death)

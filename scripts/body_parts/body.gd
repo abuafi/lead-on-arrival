@@ -70,5 +70,5 @@ func rotation_error() -> float:
         angle_to_target
     )
     
-func drop_weapon(direction: Vector2):
-    arms.drop_weapon(direction)
+func drop_weapon(direction: Vector2, unpickable: bool = false):
+    arms.drop_weapon(direction, unpickable)

@@ -36,12 +36,6 @@ func stop_moving():
 func _ready():
     sprite.frame_changed.connect(_on_frame_changed)
 
-func _on_metal_enter():
-    print('metal')
-
-func _on_metal_exit():
-    print('normal')
-
 const WALK_FRAMES: int = 13
 const WALK_CYCLE: float = WALK_FRAMES / TAU
 const TORSO_WOBBLE: float = PI/10

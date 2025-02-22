@@ -1,10 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjk0kamlolv4t"]
 
+[ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="1_c5onv"]
+
 [sub_resource type="TileSet" id="TileSet_jkm3y"]
 physics_layer_0/collision_layer = 1
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yms7a"]
-size = Vector2(465, 165)
 
 [node name="Level" type="Node2D"]
 
@@ -18,4 +17,4 @@ tile_set = SubResource("TileSet_jkm3y")
 z_index = -100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
-shape = SubResource("RectangleShape2D_yms7a")
+shape = ExtResource("1_c5onv")

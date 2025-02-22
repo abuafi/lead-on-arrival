@@ -23,6 +23,7 @@ func _on_tree_entered():
     # Traincar/NavRegion/Level/EntityHolder/Entity
 
 func play_death_sound(traincar: Traincar):
+    if not is_instance_valid(death_sound): return
     remove_child(death_sound)
     traincar.add_child(death_sound)
     death_sound.pitch_scale = randf_range(0.5, 1.5)
@@ -53,6 +54,9 @@ func bullet_hit(bullet: Bullet):
     dir = - dir.normalized()
     body.drop_weapon(dir)
     play_death_sound(get_current_traincar())
+    die()
+
+func die():
     queue_free()
 
 func make_noise():

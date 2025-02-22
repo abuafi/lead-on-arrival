@@ -22,12 +22,17 @@ class_name Traincar
 @onready var entrance: Door = $Entrance
 @onready var exit: Door = $Exit
 
+func in_play_area(global_pos: Vector2) -> bool:
+    var playable_rect: Rect2 = spawnable_area()
+    var inside: bool = playable_rect.has_point(to_local(global_pos))
+    return inside
+
 func spawn_pickup(packed: PackedPickup, global_pos: Vector2) -> Pickup:
     if not global_pos.is_finite():
         global_pos = rand_point()
     var new_pickup: Pickup = Pickup.from_packed(packed)
-    new_pickup.global_position = global_pos 
     entity_container.add_child(new_pickup)
+    new_pickup.global_position = global_pos 
     return new_pickup
 
 # Spawnable area shape in local coordinates
@@ -70,10 +75,23 @@ func get_targetable_entities(source: CharacterEntity) -> Array[CharacterEntity]:
     if entities.size() == 0: return [source]
     return entities
 
+var loaded_level_path = null
 func load_level(level_path: String):
+    loaded_level_path = level_path
     var level_scene: PackedScene = load(level_path)
     var level_node: Node2D = level_scene.instantiate()
     level = level_node
+    level.process_mode = Node.PROCESS_MODE_DISABLED
+
+func reload_level():
+    load_level(loaded_level_path)
+
+func get_player() -> Player:
+    var entities: Array[CharacterEntity] = character_entities()
+    for entity: CharacterEntity in entities:
+        if entity is Player:
+            return entity
+    return null
 
 func get_hostiles() -> Array[CharacterEntity]:
     var entities: Array[CharacterEntity] = character_entities()
@@ -88,18 +106,21 @@ var completed: bool = false :
         if not completed: activate()
 
 func activate():
+    level.process_mode = Node.PROCESS_MODE_INHERIT
     nav_region.bake_finished.connect( 
         _activate_on_bake_finished,
         ConnectFlags.CONNECT_ONE_SHOT)
     nav_region.bake_navigation_polygon()
     
 func _activate_on_bake_finished():
+    exit.close()
     await get_tree().create_timer(0.5).timeout
     entrance.open()
     entrance.player_passed_right.connect(
         _on_entrance_player_passed_right, 
         ConnectFlags.CONNECT_ONE_SHOT)
-    completion_timer.timeout.connect(check_level_completion)
+    if not completion_timer.timeout.is_connected(check_level_completion):
+        completion_timer.timeout.connect(check_level_completion)
     completion_timer.start()
 
 func _on_entrance_player_passed_right(player: Player):

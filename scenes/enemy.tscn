@@ -282,67 +282,79 @@ script = ExtResource("16_uy51o")
 [node name="Selector" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon"]
 script = ExtResource("15_w81pr")
 
-[node name="Sequence" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
+[node name="SequenceOnAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
 script = ExtResource("15_7mui4")
 
-[node name="SelectorIsAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+[node name="SelectorIsAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware"]
 script = ExtResource("15_w81pr")
 
-[node name="DetectedPlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SelectorIsAware"]
+[node name="DetectedPlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/SelectorIsAware"]
 script = ExtResource("18_iqk0q")
 
-[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SelectorIsAware"]
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/SelectorIsAware"]
 script = ExtResource("18_ju4qv")
 
-[node name="Ignore" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+[node name="Ignore" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware"]
 script = ExtResource("27_pd5dj")
 
-[node name="SequenceMakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore"]
+[node name="SequenceMakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/Ignore"]
 script = ExtResource("15_7mui4")
 
-[node name="NotHeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise"]
+[node name="NotHeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/Ignore/SequenceMakeNoise"]
 script = ExtResource("17_3en53")
 
-[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise/NotHeardNoise"]
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/Ignore/SequenceMakeNoise/NotHeardNoise"]
 script = ExtResource("18_ju4qv")
 
-[node name="MakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/Ignore/SequenceMakeNoise"]
+[node name="MakeNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/Ignore/SequenceMakeNoise"]
 script = ExtResource("27_1pc6c")
 
-[node name="SequencePickWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence"]
+[node name="SequencePickWeapon" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware"]
 script = ExtResource("15_7mui4")
 
-[node name="PickupAvailable" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SequencePickWeapon"]
+[node name="PickupAvailable" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/SequencePickWeapon"]
 script = ExtResource("27_a5pv1")
 
-[node name="GoToPickup" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/Sequence/SequencePickWeapon"]
+[node name="GoToPickup" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SequenceOnAware/SequencePickWeapon"]
 script = ExtResource("28_nl5ki")
 
-[node name="InterruptOnSignal" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
+[node name="SelectorLookIfNotAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector"]
+script = ExtResource("15_w81pr")
+
+[node name="SelectorIsAware" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware"]
+script = ExtResource("15_w81pr")
+
+[node name="DetectedPlayer" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/SelectorIsAware"]
+script = ExtResource("18_iqk0q")
+
+[node name="HeardNoise" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/SelectorIsAware"]
+script = ExtResource("18_ju4qv")
+
+[node name="InterruptOnSignal" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware"]
 script = ExtResource("29_rlwxj")
 awaiting = &"aware"
 
-[node name="SequenceSweepLook" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal"]
+[node name="SequenceSweepLook" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal"]
 script = ExtResource("15_7mui4")
 
-[node name="LookAroundCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+[node name="LookAroundCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("26_h14m0")
 speed = 1.571
 rotation_amount = 1.571
 
-[node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+[node name="Timeout" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("21_oebm2")
 
-[node name="LookAroundCCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+[node name="LookAroundCCW" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("26_h14m0")
 speed = 1.571
 rotation_clockwise = false
 rotation_amount = 3.142
 
-[node name="Timeout2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+[node name="Timeout2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("21_oebm2")
 
-[node name="LookAroundCW2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/InterruptOnSignal/SequenceSweepLook"]
+[node name="LookAroundCW2" type="Node" parent="BehaviourTree/Repeat/Selector/SequenceWithoutWeapon/Selector/SelectorLookIfNotAware/InterruptOnSignal/SequenceSweepLook"]
 script = ExtResource("26_h14m0")
 speed = 1.571
 rotation_amount = 1.571

@@ -5,22 +5,19 @@ TODO
 - ~~Bullet target switching~~
 - Sprites for obstacles and geometry
 - Actually building the levels
-- Dodge move
 - Kick move
 
 - Death animations and effects
-- Reload level on death
-- Sniper weapon
-- Shotgun weapon
-- Prevent bullet clipping in walls
+- ~~Reload level on death~~
 
 - Finish enemy sprites
 - ~~Bullet trail~~
 - Discarded weapon sprite
 - Background art
 - Main menu
-- Sound effects
+- ~~Sound effects~~
 - Music
+- ~~Prevent bullet clipping in walls~~
 
 Collision masks:
 - 1: Entities (Player and enemies)

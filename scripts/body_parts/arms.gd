@@ -39,11 +39,12 @@ func remove_weapon() -> void:
     if is_instance_valid(weapon): 
         weapon_container.remove_child(weapon)
 
-func drop_weapon(dir: Vector2) -> void:
+func drop_weapon(dir: Vector2, unpickable: bool = false) -> void:
     var weapon: Weapon = get_weapon()
     if is_instance_valid(weapon): 
         weapon_container.remove_child(weapon)
-        weapon.drop(body.entity.get_current_traincar(), dir)
+        weapon.drop(body.entity.get_current_traincar(), dir, unpickable)
+        set_weapon(null)
 
 func set_weapon(weapon: Weapon):
     remove_weapon()

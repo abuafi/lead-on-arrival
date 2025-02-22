@@ -1,8 +1,10 @@
 extends Node2D
 class_name Weapon
 
-@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var play_fire: AudioStreamPlayer2D = $Fire
+@onready var play_invalid: AudioStreamPlayer = $Invalid
 @onready var muzzle: Marker2D = $Muzzle
+@onready var checker: RayCast2D = $Muzzle/CheckerRaycast
 
 var weapon_resource: PackedEquippablePickup = null
 
@@ -14,9 +16,11 @@ func discard():
     queue_free()
 
 const DROP_FORCE: float = 75.
+const DROP_TORQUE: float = 10.
 func drop(traincar: Traincar, dir: Vector2, unpickable: bool = false):
     var pickup: Pickup = traincar.spawn_pickup(weapon_resource, body.global_position)
     pickup.apply_impulse(dir * DROP_FORCE)
+    pickup.apply_torque_impulse(randf_range(-1, 1) * DROP_TORQUE)
     if unpickable:
         pickup.set_unpickable()
 
@@ -28,8 +32,12 @@ func _input(event: InputEvent) -> void:
 
 const BULLET_SCENE: PackedScene = preload("res://scenes/bullet.tscn")
 func fire():
-    var bullet: Bullet = BULLET_SCENE.instantiate()
     var traincar: Traincar = entity.get_current_traincar()
+    if not can_fire(traincar):
+        play_invalid.play()
+        return
+
+    var bullet: Bullet = BULLET_SCENE.instantiate()
     traincar.make_noise(self)
     
     var initial_targets: Array[CharacterEntity] = traincar.get_targetable_entities(entity)
@@ -55,11 +63,23 @@ func fire():
     bullet.set_target(initial_target)
     discard()
 
+func can_fire(traincar: Traincar) -> bool:
+    if \
+    not traincar.in_play_area(body.global_position) or \
+    not traincar.in_play_area(muzzle.global_position):
+        return false
+    checker.target_position = checker.to_local(body.global_position)
+    checker.force_raycast_update()
+    if not checker.is_colliding(): return false
+    var collider: Object = checker.get_collider()
+    print(collider)
+    return collider == entity
+
 func play_fire_sound(traincar: Traincar):
-    remove_child(audio)
-    traincar.add_child(audio)
-    audio.pitch_scale = randf_range(0.5, 1.5)
-    audio.play()
-    await audio.finished
-    traincar.remove_child(audio)
-    audio.queue_free()
+    remove_child(play_fire)
+    traincar.add_child(play_fire)
+    play_fire.pitch_scale = randf_range(0.5, 1.5)
+    play_fire.play()
+    await play_fire.finished
+    traincar.remove_child(play_fire)
+    play_fire.queue_free()

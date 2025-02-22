@@ -36,3 +36,7 @@ func _on_noise(pos: Vector2):
 
 func has_heard_noise():
     return last_heard_noise.is_finite()
+
+func make_noise():
+    if not is_instance_valid(detected_player): super.make_noise()
+    else: get_current_traincar().make_noise(detected_player)

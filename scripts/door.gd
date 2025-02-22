@@ -11,11 +11,15 @@ class_name Door
 signal player_passed_left(player: Player)
 signal player_passed_right(player: Player)
 
+var is_open: bool = false
+
 func open():
-    player.play(&"open")
+    if not is_open: player.play(&"open")
+    is_open = true
 
 func close():
-    player.play(&"close")
+    if is_open: player.play(&"close")
+    is_open = false
 
 func enable_collision():
     if static_body.get_parent() == self: return
