@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://fihu8hx2d2p7"]
+
+[ext_resource type="Script" path="res://scripts/ui/volume_slider.gd" id="1_ede6q"]
+[ext_resource type="AudioStream" uid="uid://b4jltlb3mwaj0" path="res://resources/splat.tres" id="2_kf351"]
+[ext_resource type="Script" path="res://scripts/ui/background_slider.gd" id="3_t1p22"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eug6g"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_o4c2r"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Options" type="HBoxContainer"]
+theme_override_constants/separation = 50
+
+[node name="VolumeControl" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VolumeControl"]
+layout_mode = 2
+text = "Audio Volume"
+label_settings = SubResource("LabelSettings_eug6g")
+
+[node name="VolumeSlider" type="HSlider" parent="VolumeControl"]
+layout_mode = 2
+max_value = 2.0
+step = 0.1
+value = 1.0
+script = ExtResource("1_ede6q")
+
+[node name="Splat" type="AudioStreamPlayer" parent="VolumeControl/VolumeSlider"]
+stream = ExtResource("2_kf351")
+
+[node name="MovingBackground" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MovingBackground"]
+layout_mode = 2
+text = "Moving Background"
+label_settings = SubResource("LabelSettings_o4c2r")
+
+[node name="MovingBackgroundSlider" type="HSlider" parent="MovingBackground"]
+layout_mode = 2
+max_value = 1000.0
+step = 10.0
+value = 100.0
+script = ExtResource("3_t1p22")

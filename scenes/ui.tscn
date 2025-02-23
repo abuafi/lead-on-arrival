@@ -1,0 +1,317 @@
+[gd_scene load_steps=19 format=3 uid="uid://c7vms0nxvnskg"]
+
+[ext_resource type="PackedScene" uid="uid://rbgg8ne3ebw4" path="res://scenes/background.tscn" id="1_cjdj4"]
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="1_mb3pa"]
+[ext_resource type="PackedScene" uid="uid://dsuw773hn0nvu" path="res://scenes/world.tscn" id="1_rx0uh"]
+[ext_resource type="Script" path="res://scripts/game_camera.gd" id="4_gx1mo"]
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="5_gxv6m"]
+[ext_resource type="PackedScene" uid="uid://fihu8hx2d2p7" path="res://scenes/options.tscn" id="6_04uiv"]
+[ext_resource type="StyleBox" uid="uid://cg5m1roa362oo" path="res://resources/ui_panel.tres" id="9_fcnr4"]
+[ext_resource type="Texture2D" uid="uid://dxfrfw5p4vw40" path="res://assets/sprites/title.png" id="9_o1way"]
+[ext_resource type="Script" path="res://scripts/ui/lives.gd" id="10_058jm"]
+[ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="10_bgtkb"]
+[ext_resource type="Script" path="res://scripts/ui/pause.gd" id="10_c61su"]
+[ext_resource type="Script" path="res://scripts/ui/score.gd" id="11_r1xtu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ec006"]
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4tpvx"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_ih2rp"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8rl1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4y1gr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvew2"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mb3pa")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+size = Vector2i(1152, 648)
+size_2d_override = Vector2i(576, 324)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Background" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_cjdj4")]
+z_index = -100
+
+[node name="World" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_rx0uh")]
+position = Vector2(288, 162)
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(288, 162)
+script = ExtResource("4_gx1mo")
+
+[node name="MainMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 815.0
+offset_bottom = 648.0
+script = ExtResource("5_gxv6m")
+
+[node name="Title" type="Sprite2D" parent="MainMenu"]
+position = Vector2(406, 201)
+scale = Vector2(5, 5)
+texture = ExtResource("9_o1way")
+
+[node name="Margins" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Menu" type="VBoxContainer" parent="MainMenu/Margins"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenu/Margins/Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "
+"
+label_settings = SubResource("LabelSettings_ec006")
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu/Margins/Menu"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Start" type="Button" parent="MainMenu/Margins/Menu/Buttons"]
+layout_mode = 2
+text = "Start Game
+"
+
+[node name="HowToPlay" type="Button" parent="MainMenu/Margins/Menu/Buttons"]
+layout_mode = 2
+text = "How to Play"
+
+[node name="Options" parent="MainMenu/Margins/Menu/Buttons" instance=ExtResource("6_04uiv")]
+layout_mode = 2
+
+[node name="HowToPlay" type="Control" parent="MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HowToPlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/HowToPlay/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("9_fcnr4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HowToPlay/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenu/HowToPlay/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "How To Play
+"
+label_settings = SubResource("LabelSettings_4tpvx")
+
+[node name="Text" type="RichTextLabel" parent="MainMenu/HowToPlay/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "- W A S D to move
+- Mouse to aim
+- Left mouse button to fire
+- R to reload the level (and lose a life)
+- Escape to pause
+
+- Every gun can only shoot once
+- Defeat every enemy to advance
+- Getting hit will cause you to lose a life
+- Beat a level to gain a life back
+- Lose all your lives and it's Game Over
+- Try to reach as far as you can!
+
+Every bullet will eventually reach a target, even those fired by your enemies. 
+However, each shot doesn't have to hit its first mark;
+once it's been fired it will seek a closer target if it sees one.
+Use positioning to your advantage to get your enemies to hit each other.
+Tip:  Bullets that you fire will follow the enemy closest to your mouse cursor. "
+
+[node name="ButtonMargins" type="MarginContainer" parent="MainMenu/HowToPlay/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="Button" type="Button" parent="MainMenu/HowToPlay/MarginContainer/PanelContainer/VBoxContainer/ButtonMargins"]
+layout_mode = 2
+text = "OK"
+
+[node name="Pause" type="Control" parent="."]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_c61su")
+
+[node name="PanelContainer" type="PanelContainer" parent="Pause"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.15
+anchor_right = 0.85
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("9_fcnr4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Paused
+"
+label_settings = SubResource("LabelSettings_ih2rp")
+
+[node name="Options" parent="Pause/PanelContainer/VBoxContainer" instance=ExtResource("6_04uiv")]
+layout_mode = 2
+
+[node name="Label" parent="Pause/PanelContainer/VBoxContainer/Options/VolumeControl" index="0"]
+label_settings = SubResource("LabelSettings_w8rl1")
+
+[node name="Label" parent="Pause/PanelContainer/VBoxContainer/Options/MovingBackground" index="0"]
+label_settings = SubResource("LabelSettings_4y1gr")
+
+[node name="Menu" type="Button" parent="Pause/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return to Main Menu"
+
+[node name="Continue" type="Button" parent="Pause/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Continue
+"
+
+[node name="GameOver" type="Control" parent="."]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_bgtkb")
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.15
+anchor_right = 0.85
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("9_fcnr4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="GameOver/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Game Over!
+"
+label_settings = SubResource("LabelSettings_ih2rp")
+
+[node name="Menu" type="Button" parent="GameOver/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return to Main Menu"
+
+[node name="Lives" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.03
+anchor_right = 0.95
+anchor_bottom = 0.1
+grow_horizontal = 2
+theme_override_constants/separation = -2
+script = ExtResource("10_058jm")
+
+[node name="Score" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.98
+anchor_right = 0.95
+anchor_bottom = 0.98
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("11_r1xtu")
+
+[node name="Label" type="Label" parent="Score"]
+layout_mode = 2
+text = "High score: "
+label_settings = SubResource("LabelSettings_yvew2")
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Score"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+fit_content = true
+
+[editable path="Pause/PanelContainer/VBoxContainer/Options"]

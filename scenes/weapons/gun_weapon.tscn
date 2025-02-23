@@ -25,6 +25,8 @@ hit_from_inside = true
 
 [node name="Fire" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_w1heg")
+volume_db = -5.0
 
 [node name="Invalid" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_oj0tg")
+volume_db = -10.0

@@ -198,3 +198,4 @@ shape = SubResource("WorldBoundaryShape2D_em6qr")
 shape = SubResource("WorldBoundaryShape2D_mau33")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -10.0

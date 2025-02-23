@@ -35,7 +35,7 @@ const BULLET_SCENE: PackedScene = preload("res://scenes/bullet.tscn")
 func fire():
     var traincar: Traincar = entity.get_current_traincar()
     if not can_fire(traincar):
-        play_invalid.play()
+        if body.entity is Player: play_invalid.play()
         return
 
     var bullet: Bullet = BULLET_SCENE.instantiate()

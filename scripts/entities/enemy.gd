@@ -43,3 +43,16 @@ func has_heard_noise():
 func make_noise():
     if not is_instance_valid(detected_player): super.make_noise()
     else: get_current_traincar().make_noise(detected_player, &"yell")
+
+const DEAD_SCENE: PackedScene = preload("res://scenes/dead.tscn")
+const DEAD_FORCE = 20.
+
+func bullet_hit(bullet: Bullet):
+    var dir: Vector2 = bullet.global_position - global_position
+    dir = - dir.normalized()
+
+    var dead: Node2D = DEAD_SCENE.instantiate()
+    get_current_traincar().add_entity(dead, self)
+    dead.apply_impulse(dir * DEAD_FORCE)
+
+    super.bullet_hit(bullet)

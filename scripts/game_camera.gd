@@ -7,6 +7,7 @@ var target_x: float = 0
 const CAMERA_SPEED: float  = 2.
 const CAMERA_OFFSET: int = 50
 func _physics_process(delta):
+    if main_menu: return
     if is_instance_valid(following):
         target_x = following.global_position.x
     global_position.x = lerp(
@@ -18,3 +19,9 @@ func _physics_process(delta):
     var x_pos: int = int(global_position.x) - camera_width_half
     if x_pos > limit_left + CAMERA_OFFSET:
         limit_left = x_pos
+
+var main_menu: bool = false :
+    set(b):
+        main_menu = b
+        if main_menu:
+            position.x = - 0.3*World.TRAINCAR_POSITION

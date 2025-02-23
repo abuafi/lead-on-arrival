@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://d377ku7g43yb3"]
+
+[ext_resource type="AudioStream" uid="uid://bj3spdyamr83k" path="res://assets/sfx/steps_platform.ogg" id="1_3ux2m"]
+[ext_resource type="AudioStream" uid="uid://dmsniyju3pj53" path="res://assets/sfx/steps_platform2.ogg" id="2_fjn4l"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_3ux2m")
+stream_1/stream = ExtResource("2_fjn4l")

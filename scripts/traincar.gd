@@ -48,7 +48,7 @@ func rand_point(layer: int = PICKUP_NAV_LAYER) -> Vector2:
     var random_point: Vector2 = NavigationServer2D.map_get_random_point(nav_rid, layers, true)
     return random_point
 
-func add_entity(entity: Node2D, where: Marker2D):
+func add_entity(entity: Node2D, where: Node2D):
     entity_container.add_child(entity)
     entity.global_position = where.global_position
     entity.global_rotation = where.global_rotation

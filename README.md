@@ -3,21 +3,24 @@ TODO
 - ~~Level system and transition~~
 - ~~Enemy AI with behaviour tree~~
 - ~~Bullet target switching~~
-- Sprites for obstacles and geometry
-- Actually building the levels
-- Kick move
+- ~~Sprites for obstacles and geometry~~
+- ~~Actually building the levels~~
+- ~~Kick move (scrapped)~~
+- ~~Different weapons (scrapped)~~
 
 - Death animations and effects
+- Rail sprites
 - ~~Reload level on death~~
 
-- Finish enemy sprites
 - ~~Bullet trail~~
-- Discarded weapon sprite
-- Background art
-- Main menu
+- ~~Discarded weapon sprite (scrapped)~~
+- ~~Background art~~
+- ~~Main menu~~
 - ~~Sound effects~~
-- Music
 - ~~Prevent bullet clipping in walls~~
+
+- ~~Finish enemy sprites (scrapped)~~
+- ~~Music (scrapped)~~
 
 Collision masks:
 - 1: Entities (Player and enemies)

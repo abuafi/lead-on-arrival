@@ -5,7 +5,7 @@ func enter():
     super.enter()
 
 const SPEED: float = 150.0
-const MIN_DISTANCE: float = 50.
+const MIN_DISTANCE: float = 80.
 func bt_physics_process(_delta: float) -> void:
     if entity is not Enemy or not entity.has_heard_noise(): 
         node_failed()

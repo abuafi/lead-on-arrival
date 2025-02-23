@@ -4,11 +4,12 @@ class_name World
 @onready var prev_car: Traincar = null
 @onready var current_car: Traincar = $Traincar
 @onready var next_car: Traincar = null
-@onready var camera: GameCamera = $Camera2D
+@onready var camera: GameCamera = $"../Camera2D"
 
 @export var starting_level = 1
 
 signal level_ready(level: int)
+signal life_lost()
 
 var player: Player = null
 var level: int = 0
@@ -22,6 +23,8 @@ const LEVEL_DIR_DICT: Dictionary = {
 static var dir_changes: Array = LEVEL_DIR_DICT.keys()
 
 func get_level_name(_level: int) -> String:
+    if _level == 0: return "empty.tscn"
+
     _level += starting_level
     var last_idx: int = 0
     for i: int in dir_changes:
@@ -39,8 +42,9 @@ func pick_random_level(dir: String) -> String:
 
 func _on_player_death():
     current_car.activate()
+    life_lost.emit()
 
-func _ready():
+func start_game():
     setup_player()
 
     var level_name_first: String = get_level_name(level)
@@ -96,7 +100,7 @@ func transition_next_car(_player: Player):
 
 func _on_level_started(_player: Player):
     camera.following = null
-    camera.target_x = traincar_position(level)
+    camera.target_x = traincar_position(level) + position.x
 
 func load_first_level(level_name: String):
     var level_path: String = "res://levels/" + level_name

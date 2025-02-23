@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsuw773hn0nvu"]
+[gd_scene load_steps=5 format=3 uid="uid://dsuw773hn0nvu"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_arijn"]
 [ext_resource type="PackedScene" uid="uid://d2ulpp2648lln" path="res://scenes/empty_traincar.tscn" id="2_eismd"]
-[ext_resource type="Script" path="res://scripts/game_camera.gd" id="3_37d2h"]
 [ext_resource type="PackedScene" uid="uid://bas84qqwxpy5f" path="res://scenes/transition.tscn" id="4_0awye"]
 [ext_resource type="Texture2D" uid="uid://qe5lx20636y3" path="res://assets/sprites/transition_initial.png" id="5_y6g33"]
 
@@ -11,9 +10,6 @@ script = ExtResource("1_arijn")
 starting_level = 0
 
 [node name="Traincar" parent="." instance=ExtResource("2_eismd")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("3_37d2h")
 
 [node name="Transition" parent="." instance=ExtResource("4_0awye")]
 position = Vector2(270, 0)
