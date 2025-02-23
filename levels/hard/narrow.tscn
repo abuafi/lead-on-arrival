@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://xwsmb7q4odd8"]
+[gd_scene load_steps=5 format=4 uid="uid://xwsmb7q4odd8"]
 
 [ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_yqqo1"]
 [ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="2_ulwis"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="3_uwnat"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="4_f67ok"]
 [ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_i4abs"]
 
 [node name="Level" type="Node2D"]
@@ -25,12 +24,12 @@ rotation = -3.04406
 [node name="Enemy2" parent="EntityContainer" instance=ExtResource("3_uwnat")]
 position = Vector2(124, 14)
 rotation = -1.68693
-default_equip = ExtResource("4_f67ok")
+default_equip = ExtResource("2_ulwis")
 
 [node name="Enemy3" parent="EntityContainer" instance=ExtResource("3_uwnat")]
 position = Vector2(215, -21)
 rotation = -3.01843
-default_equip = ExtResource("4_f67ok")
+default_equip = ExtResource("2_ulwis")
 
 [node name="Pickup3" parent="EntityContainer" instance=ExtResource("2_ulwis")]
 position = Vector2(180, -60)

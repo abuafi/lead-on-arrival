@@ -99,10 +99,6 @@ text = "
 "
 label_settings = SubResource("LabelSettings_ec006")
 
-[node name="Debug" type="Label" parent="MainMenu/Margins/Menu"]
-layout_mode = 2
-text = "DEBUG LABEL"
-
 [node name="Buttons" type="VBoxContainer" parent="MainMenu/Margins/Menu"]
 layout_mode = 2
 size_flags_vertical = 3

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=4 uid="uid://1e187j1cm34g"]
+[gd_scene load_steps=5 format=4 uid="uid://1e187j1cm34g"]
 
 [ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_oxisr"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_n3j64"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="3_erxaw"]
 [ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="4_br84v"]
 [ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_565oa"]
 
@@ -18,22 +17,22 @@ tile_set = ExtResource("1_oxisr")
 [node name="Enemy" parent="EntityContainer" instance=ExtResource("2_n3j64")]
 position = Vector2(-90, 65)
 rotation = -2.254
-default_equip = ExtResource("3_erxaw")
+default_equip = ExtResource("4_br84v")
 
 [node name="Enemy2" parent="EntityContainer" instance=ExtResource("2_n3j64")]
 position = Vector2(-86, -66)
 rotation = -0.821299
-default_equip = ExtResource("3_erxaw")
+default_equip = ExtResource("4_br84v")
 
 [node name="Enemy3" parent="EntityContainer" instance=ExtResource("2_n3j64")]
 position = Vector2(68, -69)
 rotation = 1.01677
-default_equip = ExtResource("3_erxaw")
+default_equip = ExtResource("4_br84v")
 
 [node name="Enemy4" parent="EntityContainer" instance=ExtResource("2_n3j64")]
 position = Vector2(128, 55)
 rotation = 2.45086
-default_equip = ExtResource("3_erxaw")
+default_equip = ExtResource("4_br84v")
 
 [node name="Pickup" parent="EntityContainer" instance=ExtResource("4_br84v")]
 position = Vector2(-86, 0)

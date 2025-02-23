@@ -18,11 +18,13 @@ const LEVEL_DIR_DICT: Dictionary = {
     # 0: "test"
     0: "easy",
     5: "medium",
-    10: "hard",
+    # 10: "hard",
 }
 static var dir_changes: Array = LEVEL_DIR_DICT.keys()
 
 const EASY_LEVELS: Array[String] = ["bowl","choice","easy","glass","rowless","sneak","vision"]
+const MEDIUM_LEVELS: Array[String] = ["bone","bridge","cage","closet","columns","cover","guards","rows","stealth","towers"]
+const HARD_LEVELS: Array[String] = ["fracture", "narrow", "race", "room", "run", "stop", "tube", "zig"]
 
 const LEVELS: Dictionary = { # Dictionary[String, PackedScene]
     "bowl": preload("res://levels/easy/bowl.tscn"),
@@ -31,47 +33,54 @@ const LEVELS: Dictionary = { # Dictionary[String, PackedScene]
     "glass": preload("res://levels/easy/glass.tscn"),
     "rowless": preload("res://levels/easy/rowless.tscn"),
     "sneak": preload("res://levels/easy/sneak.tscn"),
-    "vision": preload("res://levels/easy/vision.tscn")
+    "vision": preload("res://levels/easy/vision.tscn"),
+    "bone": preload("res://levels/medium/bone.tscn"),
+    "bridge": preload("res://levels/medium/bridge.tscn"),
+    "cage": preload("res://levels/medium/cage.tscn"),
+    "closet": preload("res://levels/medium/closet.tscn"),
+    "columns": preload("res://levels/medium/columns.tscn"),
+    "cover": preload("res://levels/medium/cover.tscn"),
+    "guards": preload("res://levels/medium/guards.tscn"),
+    "rows": preload("res://levels/medium/rows.tscn"),
+    "stealth": preload("res://levels/medium/stealth.tscn"),
+    "towers": preload("res://levels/medium/towers.tscn"),
+    "fracture": preload("res://levels/hard/fracture.tscn"),
+    "narrow": preload("res://levels/hard/narrow.tscn"),
+    "race": preload("res://levels/hard/race.tscn"),
+    "room": preload("res://levels/hard/room.tscn"),
+    "run": preload("res://levels/hard/run.tscn"),
+    "stop": preload("res://levels/hard/stop.tscn"),
+    "tube": preload("res://levels/hard/tube.tscn"),
+    "zig": preload("res://levels/hard/zig.tscn")
 }
+const LEVEL_EMPTY: PackedScene = preload("res://levels/empty.tscn")
 
 func get_level_scene(_level: int) -> PackedScene:
-    var level_name: String = EASY_LEVELS.pick_random()
-    return LEVELS[level_name]
-#     return "easy/bowl.tscn"
-#     return pick_random_level("easy")
-#     if _level == 0: return "empty.tscn"
+    if _level == 0: return LEVEL_EMPTY
+    _level += starting_level
+    var last_idx: int = 0
+    for i: int in dir_changes:
+        if i > _level: break
+        last_idx = i
+    var dir: String = LEVEL_DIR_DICT[last_idx]
+    if dir == "easy": return LEVELS[pick_not_seen(EASY_LEVELS)]
+    if dir == "medium": return LEVELS[pick_not_seen(MEDIUM_LEVELS)]
+    else: return LEVELS[pick_not_seen(HARD_LEVELS)]
 
-#     #SAFE??
-#     _level += starting_level
-#     var last_idx: int = 0
-#     for i: int in dir_changes:
-#         if i > _level: break
-#         last_idx = i
-#     var dir: String = LEVEL_DIR_DICT[last_idx]
-#     return pick_random_level(dir)
-
-# func pick_random_level(dir: String) -> String:
-#     var dir_path: String = "res://levels/" + dir
-#     var levels: PackedStringArray = DirAccess.get_files_at(dir_path)
-#     var levels_arr: Array[String] = []
-#     levels_arr.assign(levels)
-#     return dir + "/" + levels_arr.pick_random()
-#     # return dir + "/" + pick_not_seen(levels_arr)
-
-# var seen_levels: Array[String] = []
-# func pick_not_seen(arr: Array[String]):
-#     var filtered_arr: Array[String] = []
-#     filtered_arr.assign(
-#         arr.filter(func(level_name): return level_name not in seen_levels)
-#     )
-#     var picked: String
-#     if filtered_arr.size() > 0:
-#         picked = filtered_arr.pick_random()
-#     else:
-#         seen_levels.clear()
-#         picked = arr.pick_random()
-#     seen_levels.append(picked)
-#     return picked
+var seen_levels: Array[String] = []
+func pick_not_seen(arr: Array[String]):
+    var filtered_arr: Array[String] = []
+    filtered_arr.assign(
+        arr.filter(func(level_name): return level_name not in seen_levels)
+    )
+    var picked: String
+    if filtered_arr.size() > 0:
+        picked = filtered_arr.pick_random()
+    else:
+        seen_levels.clear()
+        picked = arr.pick_random()
+    seen_levels.append(picked)
+    return picked
 
 func _on_player_death():
     current_car.activate()
