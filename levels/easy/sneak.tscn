@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://b6dgclao5e8av"]
+[gd_scene load_steps=5 format=4 uid="uid://b6dgclao5e8av"]
 
 [ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_mhlqk"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_lrp43"]
-[ext_resource type="PackedScene" uid="uid://xq6qiocs1bpd" path="res://scenes/base_pickup.tscn" id="3_86cwt"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="4_rn11k"]
 [ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="5_266j7"]
 [ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_dofl5"]
 
@@ -20,10 +18,6 @@ tile_set = ExtResource("1_mhlqk")
 position = Vector2(-8, -27)
 rotation = -2.89158
 
-[node name="Pickup" parent="EntityContainer" instance=ExtResource("3_86cwt")]
-position = Vector2(86, 31)
-pickup_resource = ExtResource("4_rn11k")
-
 [node name="Enemy2" parent="EntityContainer" instance=ExtResource("2_lrp43")]
 position = Vector2(-61, 29)
 
@@ -35,6 +29,9 @@ position = Vector2(-83, 69)
 
 [node name="Pickup3" parent="EntityContainer" instance=ExtResource("5_266j7")]
 position = Vector2(209, -1)
+
+[node name="Pickup" parent="EntityContainer" instance=ExtResource("5_266j7")]
+position = Vector2(86, 42)
 
 [node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
 z_index = -100

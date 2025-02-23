@@ -20,9 +20,10 @@ func _ready():
 
 func open_main_menu():
     camera.main_menu = true
-    pass
 
 func start_game():
+    if game_running: return
+    
     camera.main_menu = false
     world.start_game()
     main_menu.fade_off()

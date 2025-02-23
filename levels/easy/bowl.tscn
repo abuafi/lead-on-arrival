@@ -23,13 +23,13 @@ position = Vector2(47, 48)
 rotation = -2.402
 
 [node name="Pickup" parent="EntityContainer" instance=ExtResource("3_5u8fl")]
-position = Vector2(-15, 28)
+position = Vector2(-21, 31)
 
 [node name="Pickup2" parent="EntityContainer" instance=ExtResource("3_5u8fl")]
-position = Vector2(19, 28)
+position = Vector2(17, 31)
 
 [node name="Pickup3" parent="EntityContainer" instance=ExtResource("3_5u8fl")]
-position = Vector2(1, 55)
+position = Vector2(-1, 55)
 
 [node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
 z_index = -100

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://dsmnj7wwgpwfk"]
+[gd_scene load_steps=5 format=4 uid="uid://dsmnj7wwgpwfk"]
 
 [ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_gmadr"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="2_v0vk5"]
-[ext_resource type="PackedScene" uid="uid://xq6qiocs1bpd" path="res://scenes/base_pickup.tscn" id="3_eo3h8"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="4_asfjp"]
+[ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="3_fpmtx"]
 [ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_k7smf"]
 
 [node name="Level" type="Node2D"]
@@ -19,21 +18,18 @@ tile_set = ExtResource("1_gmadr")
 position = Vector2(4.00002, 61)
 rotation = -3.81068
 
-[node name="Pickup" parent="EntityContainer" instance=ExtResource("3_eo3h8")]
-position = Vector2(47, 66)
-pickup_resource = ExtResource("4_asfjp")
-
-[node name="Pickup2" parent="EntityContainer" instance=ExtResource("3_eo3h8")]
-position = Vector2(-117, -69)
-pickup_resource = ExtResource("4_asfjp")
-
-[node name="Pickup3" parent="EntityContainer" instance=ExtResource("3_eo3h8")]
-position = Vector2(209, 63)
-pickup_resource = ExtResource("4_asfjp")
-
 [node name="Enemy" parent="EntityContainer" instance=ExtResource("2_v0vk5")]
 position = Vector2(106, 54)
 rotation = -2.25446
+
+[node name="Pickup" parent="EntityContainer" instance=ExtResource("3_fpmtx")]
+position = Vector2(43, 63)
+
+[node name="Pickup2" parent="EntityContainer" instance=ExtResource("3_fpmtx")]
+position = Vector2(-107, -63)
+
+[node name="Pickup3" parent="EntityContainer" instance=ExtResource("3_fpmtx")]
+position = Vector2(194, 55)
 
 [node name="PlayArea" type="Area2D" parent="."]
 z_index = -100

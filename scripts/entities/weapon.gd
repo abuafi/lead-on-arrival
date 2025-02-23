@@ -7,8 +7,6 @@ class_name Weapon
 @onready var checker: RayCast2D = $Muzzle/CheckerRaycast
 @onready var bullet_nav: NavigationAgent2D = $BulletNav
 
-var weapon_resource: PackedEquippablePickup = null
-
 var entity: CharacterEntity = null
 var body: Body = null
 
@@ -19,7 +17,7 @@ func discard():
 const DROP_FORCE: float = 75.
 const DROP_TORQUE: float = 10.
 func drop(traincar: Traincar, dir: Vector2, unpickable: bool = false):
-    var pickup: Pickup = traincar.spawn_pickup(weapon_resource, body.global_position)
+    var pickup: Pickup = traincar.spawn_pickup(body.global_position)
     pickup.apply_impulse(dir * DROP_FORCE)
     pickup.apply_torque_impulse(randf_range(-1, 1) * DROP_TORQUE)
     if unpickable:

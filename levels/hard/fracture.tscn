@@ -37,18 +37,22 @@ default_equip = ExtResource("3_rn5wb")
 
 [node name="Pickup" parent="EntityContainer" instance=ExtResource("4_wrpdn")]
 position = Vector2(-47, 72)
+arms_sprite = null
 
 [node name="Pickup4" parent="EntityContainer" instance=ExtResource("4_wrpdn")]
 position = Vector2(136, 71)
+arms_sprite = null
 
 [node name="Enemy7" parent="EntityContainer" instance=ExtResource("2_y640e")]
 position = Vector2(149, -76)
 
 [node name="Pickup5" parent="EntityContainer" instance=ExtResource("4_wrpdn")]
 position = Vector2(212, -44)
+arms_sprite = null
 
 [node name="Pickup6" parent="EntityContainer" instance=ExtResource("4_wrpdn")]
 position = Vector2(185, -76)
+arms_sprite = null
 
 [node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
 z_index = -100

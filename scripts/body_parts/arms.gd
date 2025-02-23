@@ -52,5 +52,5 @@ func set_weapon(weapon: Weapon):
         set_arms_sprite()
     else:
         weapon_container.add_child(weapon)
-        set_arms_sprite(weapon.weapon_resource.arms_sprite)
+        set_arms_sprite(^"ArmsSingleSprite")
         

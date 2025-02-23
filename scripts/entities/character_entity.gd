@@ -5,7 +5,7 @@ class_name CharacterEntity
 @onready var body: Body = $Body
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 
-@export var default_equip: PackedEquippablePickup = null
+@export var default_equip: PackedScene = null
 
 signal picked_weapon(weapon: Weapon)
 
@@ -37,7 +37,8 @@ func _init() -> void:
 
 func _ready():
     if is_instance_valid(default_equip):
-        default_equip.equip_to_entity(self)
+        var pickup: Pickup = default_equip.instantiate()
+        pickup.equip_to_entity(self)
 
 signal moved(position: Vector2)
 

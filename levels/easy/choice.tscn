@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://cjo8g6mpv7a10"]
+[gd_scene load_steps=5 format=4 uid="uid://cjo8g6mpv7a10"]
 
 [ext_resource type="TileSet" uid="uid://64ngykqo1okw" path="res://resources/train_tileset.tres" id="1_6500o"]
 [ext_resource type="PackedScene" uid="uid://48yo7gaurd3y" path="res://scenes/gun_pickup.tscn" id="2_k3bfr"]
 [ext_resource type="PackedScene" uid="uid://cjdf6b1rsf335" path="res://scenes/enemy.tscn" id="3_nsicv"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="4_ww2hd"]
 [ext_resource type="Shape2D" uid="uid://fijjjacikach" path="res://resources/play_area_shape.tres" id="5_qkva1"]
 
 [node name="Level" type="Node2D"]
@@ -35,7 +34,7 @@ rotation = -0.00426708
 [node name="Enemy3" parent="EntityContainer" instance=ExtResource("3_nsicv")]
 position = Vector2(-1, -28)
 rotation = 3.13506
-default_equip = ExtResource("4_ww2hd")
+default_equip = ExtResource("2_k3bfr")
 
 [node name="PlayArea" type="Area2D" parent="." groups=["collision_geometry"]]
 z_index = -100

@@ -4,6 +4,7 @@ extends Slider
 
 func _ready():
     load_data()
+    background.scrolling_speed = value
     drag_ended.connect(_on_drag_ended)
 
 func _on_drag_ended(_value_changed: bool):

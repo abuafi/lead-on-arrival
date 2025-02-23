@@ -8,8 +8,8 @@ TODO
 - ~~Kick move (scrapped)~~
 - ~~Different weapons (scrapped)~~
 
-- Death animations and effects
-- Rail sprites
+- ~~Death animations and effects~~
+- ~~Rail sprites~~
 - ~~Reload level on death~~
 
 - ~~Bullet trail~~

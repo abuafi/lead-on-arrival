@@ -28,10 +28,10 @@ func in_play_area(global_pos: Vector2) -> bool:
     var inside: bool = playable_rect.has_point(to_local(global_pos))
     return inside
 
-func spawn_pickup(packed: PackedPickup, global_pos: Vector2) -> Pickup:
+func spawn_pickup(global_pos: Vector2) -> Pickup:
     if not global_pos.is_finite():
         global_pos = rand_point()
-    var new_pickup: Pickup = Pickup.from_packed(packed)
+    var new_pickup: Pickup = Pickup.PICKUP_SCENE.instantiate()
     entity_container.add_child(new_pickup)
     new_pickup.global_position = global_pos 
     return new_pickup
@@ -77,16 +77,15 @@ func get_targetable_entities(source: Node2D) -> Array[CharacterEntity]:
         return [source]
     return entities
 
-var loaded_level_path = null
-func load_level(level_path: String):
-    loaded_level_path = level_path
-    var level_scene: PackedScene = load(level_path)
+var loaded_level_scene = null
+func load_level(level_scene: PackedScene):
+    loaded_level_scene = level_scene
     var level_node: Node2D = level_scene.instantiate()
     level = level_node
     level.process_mode = Node.PROCESS_MODE_DISABLED
 
 func reload_level():
-    load_level(loaded_level_path)
+    load_level(loaded_level_scene)
 
 func get_player() -> Player:
     var entities: Array[CharacterEntity] = character_entities()

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/entities/pickup.gd" id="1_rc3pj"]
 [ext_resource type="Texture2D" uid="uid://c6i8x2tki0esf" path="res://assets/sprites/gun_pickup.png" id="2_gqpqd"]
-[ext_resource type="Resource" uid="uid://bxlq4r21x452u" path="res://resources/gun_pickup.tres" id="2_vww7o"]
+[ext_resource type="PackedScene" uid="uid://bigy6vni8dtc0" path="res://scenes/weapons/gun_weapon.tscn" id="3_6ekbw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qn12y"]
 
@@ -16,7 +16,9 @@ gravity_scale = 0.0
 inertia = 1.0
 linear_damp = 1.0
 script = ExtResource("1_rc3pj")
-pickup_resource = ExtResource("2_vww7o")
+pickup_texture = ExtResource("2_gqpqd")
+weapon_scene = ExtResource("3_6ekbw")
+arms_sprite = null
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_gqpqd")
